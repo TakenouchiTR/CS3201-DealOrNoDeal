@@ -11,7 +11,7 @@
         /// <value>
         /// The briefcase identifier.
         /// </value>
-        public int BriefcaseId { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the prize amount.
