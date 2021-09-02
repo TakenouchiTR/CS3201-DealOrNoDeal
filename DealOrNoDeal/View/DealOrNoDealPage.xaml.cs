@@ -268,8 +268,8 @@ namespace DealOrNoDeal.View
             else
             {
                 this.summaryOutput.Text =
-                    $"Your case contained: {firstBriefcasePrizeAmount:C}\n" +
-                    $"Accepted offer: {this.gameManager.CurrentBankerOffer:C}\n" +
+                    $"Your case contained: {firstBriefcasePrizeAmount:C}{Environment.NewLine}" +
+                    $"Accepted offer: {this.gameManager.CurrentBankerOffer:C}{Environment.NewLine}" +
                     "GAME OVER";
             }
 
@@ -333,8 +333,8 @@ namespace DealOrNoDeal.View
         private void displayBankerOfferSummary()
         {
             this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxBankerOffer:C} | " +
-                                      $"Min. offer:  {this.gameManager.MinBankerOffer:C}\n" +
-                                      $"Current offer: {this.gameManager.CurrentBankerOffer:C}\n" +
+                                      $"Min. offer:  {this.gameManager.MinBankerOffer:C}{Environment.NewLine}" +
+                                      $"Current offer: {this.gameManager.CurrentBankerOffer:C}{Environment.NewLine}" +
                                       "Deal or No Deal?";
         }
 
