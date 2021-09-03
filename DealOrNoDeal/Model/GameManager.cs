@@ -248,6 +248,20 @@ namespace DealOrNoDeal.Model
         }
 
         /// <summary>
+        /// Updates the current, min, max, and average offer values.
+        /// </summary>
+        public void UpdateOfferValues(int currentOffer)
+        {
+            this.CurrentOffer = currentOffer;
+            this.MinOffer = Math.Min(this.MinOffer, currentOffer);
+            this.MaxOffer = Math.Min(this.MaxOffer, currentOffer);
+
+            //Rolling average calculation
+            this.AverageOffer *= (this.CurrentRound - 1) / this.CurrentRound;
+            this.AverageOffer += currentOffer / this.CurrentRound;
+        }
+
+        /// <summary>
         ///     Gets the prize amount stored in a certain briefcase.
         ///     Precondition: id &gt;= 0 &amp;&amp; id &amp; briefcases.Count &amp;&amp;
         ///     Postcondition: None
