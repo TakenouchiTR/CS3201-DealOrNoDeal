@@ -153,8 +153,8 @@ namespace DealOrNoDeal.Model
             this.MinOffer = int.MaxValue;
             this.MaxOffer = int.MinValue;
 
-            this.populateBriefcaseList();
-            this.assignRandomPrizesToBriefcases();
+            var prizes = generateShuffledPrizeArray();
+            this.populateBriefcaseList(prizes);
         }
 
         #endregion
@@ -179,24 +179,15 @@ namespace DealOrNoDeal.Model
             return Math.Max(MaxBriefcasesToOpen - roundNumber + 1, 1);
         }
 
-        private void populateBriefcaseList()
+        private void populateBriefcaseList(IList<int> prizes)
         {
             for (var i = 0; i < BriefcaseCount; ++i)
             {
-                this.briefcases.Add(new Briefcase());
-                this.briefcases[i].Id = i;
+                Briefcase briefcase = new Briefcase(i, prizes[i]);
+                this.briefcases.Add(briefcase);
             }
         }
-
-        private void assignRandomPrizesToBriefcases()
-        {
-            var shuffledPrizes = generateShuffledPrizeArray();
-            for (var i = 0; i < this.briefcases.Count; ++i)
-            {
-                this.briefcases[i].PrizeAmount = shuffledPrizes[i];
-            }
-        }
-
+        
         private static int[] generateShuffledPrizeArray()
         {
             var shuffledArr = (int[])PrizeAmounts.Clone();
