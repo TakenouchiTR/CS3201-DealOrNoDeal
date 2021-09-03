@@ -246,7 +246,7 @@ namespace DealOrNoDeal.View
 
         private void setupEndOfRound()
         {
-            this.gameManager.UpdateOfferValues();
+            this.gameManager.HandleEndOfRound();
             this.disableBriefcaseButtons();
             this.displayBankerOfferSummary();
             this.showDealButtons();

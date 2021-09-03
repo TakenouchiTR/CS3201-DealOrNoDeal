@@ -236,6 +236,17 @@ namespace DealOrNoDeal.Model
         }
 
         /// <summary>
+        ///     Handles the end of round logic.
+        ///     Precondition: None
+        ///     Postcondition: 
+        /// </summary>
+        public void HandleEndOfRound()
+        {
+            var latestOffer = this.GetOffer();
+            this.updateOfferValues(latestOffer);
+        }
+        
+        /// <summary>
         ///     Gets an offer from the Banker.
         /// </summary>
         /// <returns>An offer from the Banker.</returns>
@@ -246,21 +257,16 @@ namespace DealOrNoDeal.Model
 
             return Banker.CalculateOffer(availablePrizes, briefcasesToOpenNextRound);
         }
-
-        /// <summary>
-        /// Updates the current, min, max, and average offer values.
-        /// </summary>
-        public void UpdateOfferValues()
+        
+        private void updateOfferValues(int latestOffer)
         {
-            var currentOffer = this.GetOffer();
-
-            this.CurrentOffer = currentOffer;
-            this.MinOffer = Math.Min(this.MinOffer, currentOffer);
-            this.MaxOffer = Math.Max(this.MaxOffer, currentOffer);
+            this.CurrentOffer = latestOffer;
+            this.MinOffer = Math.Min(this.MinOffer, latestOffer);
+            this.MaxOffer = Math.Max(this.MaxOffer, latestOffer);
 
             //Rolling average calculation
             this.AverageOffer *= (this.CurrentRound - 1) / this.CurrentRound;
-            this.AverageOffer += currentOffer / this.CurrentRound;
+            this.AverageOffer += latestOffer / this.CurrentRound;
         }
 
         /// <summary>
