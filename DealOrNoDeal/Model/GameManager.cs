@@ -12,7 +12,7 @@ namespace DealOrNoDeal.Model
         /// <summary>
         ///     The total number of briefcases
         /// </summary>
-        public  const int BriefcaseCount = 26;
+        public const int BriefcaseCount = 26;
 
         /// <summary>
         ///     The maximum briefcases to open in a single round
@@ -77,7 +77,7 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The current banker offer.
         /// </value>
-        public int CurrentBankerOffer { get; set; }
+        public int CurrentOffer { get; set; }
 
         /// <summary>
         ///     Gets or sets the current round.
@@ -125,7 +125,7 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The maximum Banker offer.
         /// </value>
-        public int MaxBankerOffer { get; set; }
+        public int MaxOffer { get; set; }
 
         /// <summary>
         ///     Gets or sets the minimum offer made by the Banker.
@@ -133,7 +133,7 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The minimum Banker offer.
         /// </value>
-        public int MinBankerOffer { get; set; }
+        public int MinOffer { get; set; }
 
         #endregion
 
@@ -149,9 +149,9 @@ namespace DealOrNoDeal.Model
             this.BriefcasesRemainingInRound = 6;
             this.FirstBriefcaseId = -1;
             this.FinalBriefcaseId = -1;
-            this.CurrentBankerOffer = 0;
-            this.MinBankerOffer = int.MaxValue;
-            this.MaxBankerOffer = int.MinValue;
+            this.CurrentOffer = 0;
+            this.MinOffer = int.MaxValue;
+            this.MaxOffer = int.MinValue;
 
             this.populateBriefcaseList();
             this.assignRandomPrizesToBriefcases();
@@ -248,7 +248,7 @@ namespace DealOrNoDeal.Model
         /// <returns>An offer from the Banker.</returns>
         public int GetOffer()
         {
-            var availablePrizes = this.briefcases.Select(x => x.PrizeAmount).ToList();
+            var availablePrizes = this.briefcases.Select(briefcase => briefcase.PrizeAmount).ToList();
             var briefcasesToOpenNextRound = CalculateBriefcasesToOpenInRound(this.CurrentRound + 1);
 
             return Banker.CalculateOffer(availablePrizes, briefcasesToOpenNextRound);
