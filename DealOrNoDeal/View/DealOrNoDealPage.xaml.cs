@@ -219,21 +219,43 @@ namespace DealOrNoDeal.View
 
         private void setupFinalRound()
         {
+            var firstBriefcaseButton = this.getButtonById(this.gameManager.FirstBriefcaseId);
             var lastBriefcaseButton = this.getLastBriefcase();
-            this.hideBriefcaseButtons();
-            this.showDealButtons();
-
             this.gameManager.FinalBriefcaseId = this.getBriefcaseID(lastBriefcaseButton);
+            this.hideBriefcaseButtons();
+            
+            moveButtonToCenterRow(firstBriefcaseButton);
+            moveButtonToCenterRow(lastBriefcaseButton);
 
-            this.dealButton.Content = $"Open {this.gameManager.FirstBriefcaseNumber}";
-            this.noDealButton.Content = $"Open {this.gameManager.FinalBriefcaseNumber}";
-            this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxOffer:C} | " +
-                                      $"Min. offer:  {this.gameManager.MinOffer:C}";
+            firstBriefcaseButton.Visibility = Visibility.Visible;
+            lastBriefcaseButton.Visibility = Visibility.Visible;
+
+            this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxOffer:C}{Environment.NewLine}" +
+                                      $"Min. offer: {this.gameManager.MinOffer:C}{Environment.NewLine}" + 
+                                      $"Avg. offer: {this.gameManager.AverageOffer:C}";
+
         }
 
         private void moveButtonToCenterRow(Button button)
         {
-            
+            var buttonPanel = button.Parent as StackPanel;
+            buttonPanel.Children.Remove(button);
+
+            this.centerStackPanel.Children.Add(button);
+        }
+
+        private Button getButtonById(int targetId)
+        {
+            foreach (var button in this.briefcaseButtons)
+            {
+                int buttonId = (int) button.Tag;
+                if (buttonId == targetId)
+                {
+                    return button;
+                }
+            }
+
+            return null;
         }
 
         private Button getLastBriefcase()
