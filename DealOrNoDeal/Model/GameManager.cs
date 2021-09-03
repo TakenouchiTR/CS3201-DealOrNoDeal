@@ -135,6 +135,8 @@ namespace DealOrNoDeal.Model
         /// </value>
         public int MinOffer { get; set; }
 
+        public int AverageOffer { get; set; }
+
         #endregion
 
         #region Constructors
