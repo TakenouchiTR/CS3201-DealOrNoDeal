@@ -256,7 +256,7 @@ namespace DealOrNoDeal.Model
 
             this.CurrentOffer = currentOffer;
             this.MinOffer = Math.Min(this.MinOffer, currentOffer);
-            this.MaxOffer = Math.Min(this.MaxOffer, currentOffer);
+            this.MaxOffer = Math.Max(this.MaxOffer, currentOffer);
 
             //Rolling average calculation
             this.AverageOffer *= (this.CurrentRound - 1) / this.CurrentRound;
