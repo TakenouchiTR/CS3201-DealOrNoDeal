@@ -240,7 +240,7 @@ namespace DealOrNoDeal.Model
             return -1;
         }
 
-        //Todo Ask professor about this
+        //Todo Ask professor about post condition affecting fields
         /// <summary>
         ///     Handles the end of round logic.
         ///     Precondition: None
@@ -248,31 +248,10 @@ namespace DealOrNoDeal.Model
         /// </summary>
         public void HandleEndOfRound()
         {
-            var latestOffer = this.GetOffer();
-            this.updateOfferValues(latestOffer);
-        }
-        
-        /// <summary>
-        ///     Gets an offer from the Banker.
-        /// </summary>
-        /// <returns>An offer from the Banker.</returns>
-        public int GetOffer()
-        {
             var availablePrizes = this.briefcases.Select(briefcase => briefcase.PrizeAmount).ToList();
             var briefcasesToOpenNextRound = CalculateBriefcasesToOpenInRound(this.CurrentRound + 1);
 
-            return Banker.CalculateOffer(availablePrizes, briefcasesToOpenNextRound);
-        }
-        
-        private void updateOfferValues(int latestOffer)
-        {
-            this.CurrentOffer = latestOffer;
-            this.MinOffer = Math.Min(this.MinOffer, latestOffer);
-            this.MaxOffer = Math.Max(this.MaxOffer, latestOffer);
-
-            //Rolling average calculation
-            this.AverageOffer *= (this.CurrentRound - 1) / this.CurrentRound;
-            this.AverageOffer += latestOffer / this.CurrentRound;
+            this.banker.HandleEndOfRound(availablePrizes, briefcasesToOpenNextRound);
         }
 
         /// <summary>

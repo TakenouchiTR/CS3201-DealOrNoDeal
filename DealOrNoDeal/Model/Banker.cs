@@ -9,6 +9,10 @@ namespace DealOrNoDeal.Model
     /// </summary>
     public class Banker
     {
+        private const float ROUND_AMOUNT = 100;
+
+        private int numbersInAverage;
+
         #region Properties
         /// <summary>
         ///     Gets or sets the current offer.
@@ -45,10 +49,18 @@ namespace DealOrNoDeal.Model
 
         public Banker()
         {
+            this.numbersInAverage = 0;
+
             this.CurrentOffer = 0;
             this.MinOffer = int.MaxValue;
             this.MaxOffer = int.MinValue;
             this.AverageOffer = 0;
+        }
+
+        public void HandleEndOfRound(IList<int> prizesStillAvailable, int briefcasesToOpenNextRound)
+        {
+            var latestOffer = this.CalculateOffer(prizesStillAvailable, briefcasesToOpenNextRound);
+            this.updateOfferValues(latestOffer);
         }
 
         /// <summary>
@@ -65,12 +77,29 @@ namespace DealOrNoDeal.Model
         {
             float sumOfPrizesRemaining = prizesStillAvailable.Sum();
 
-            float offer = sumOfPrizesRemaining / briefcasesToOpenNextRound / prizesStillAvailable.Count;
-            offer /= 100;
+            var offer = sumOfPrizesRemaining / briefcasesToOpenNextRound / prizesStillAvailable.Count;
+            offer /= ROUND_AMOUNT;
             offer = (float) Math.Round(offer);
-            offer *= 100;
+            offer *= ROUND_AMOUNT;
 
             return (int) offer;
+        }
+        
+        private void updateOfferValues(int latestOffer)
+        {
+            this.CurrentOffer = latestOffer;
+            this.MinOffer = Math.Min(this.MinOffer, latestOffer);
+            this.MaxOffer = Math.Max(this.MaxOffer, latestOffer);
+            
+            this.updateAverageOffer(latestOffer);
+        }
+
+        private void updateAverageOffer(int latestOffer)
+        {
+            //Rolling average
+            ++this.numbersInAverage;
+            this.AverageOffer *= (this.numbersInAverage - 1) / this.numbersInAverage;
+            this.AverageOffer += latestOffer / this.numbersInAverage;
         }
     }
 }
