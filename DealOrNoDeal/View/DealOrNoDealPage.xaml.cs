@@ -151,8 +151,9 @@ namespace DealOrNoDeal.View
 
             if (this.gameManager.HasFirstBriefcaseClaimed())
             {
-                this.gameManager.FirstBriefcaseId = briefcaseId;
-                this.displayPersonalBriefcase();
+                var prizeAmount = this.gameManager.RemoveBriefcaseFromPlay(briefcaseId);
+                this.gameManager.BriefcasesRemainingInRound--;
+                this.findAndGrayOutGameDollarLabel(prizeAmount);
             }
             else
             {
@@ -164,9 +165,8 @@ namespace DealOrNoDeal.View
 
         private void handleFirstBriefcaseClick(int briefcaseId)
         {
-            var prizeAmount = this.gameManager.RemoveBriefcaseFromPlay(briefcaseId);
-            this.gameManager.BriefcasesRemainingInRound--;
-            this.findAndGrayOutGameDollarLabel(prizeAmount);
+            this.gameManager.FirstBriefcaseId = briefcaseId;
+            this.displayFirstBriefcaseChosen();
         }
 
         private void findAndGrayOutGameDollarLabel(int amount)
@@ -229,6 +229,11 @@ namespace DealOrNoDeal.View
             this.noDealButton.Content = $"Open {this.gameManager.FinalBriefcaseNumber}";
             this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxOffer:C} | " +
                                       $"Min. offer:  {this.gameManager.MinOffer:C}";
+        }
+
+        private void moveButtonToCenterRow(Button button)
+        {
+            
         }
 
         private Button getLastBriefcase()
@@ -330,12 +335,12 @@ namespace DealOrNoDeal.View
         private void displayBankerOfferSummary()
         {
             this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxOffer:C} | " +
-                                      $"Min. offer:  {this.gameManager.MinOffer:C}{Environment.NewLine}" +
-                                      $"Current offer: {this.gameManager.CurrentOffer:C}{Environment.NewLine}" +
+                                      $"Min. offer: {this.gameManager.MinOffer:C}{Environment.NewLine}" +
+                                      $"Avg. offer: {this.gameManager.AverageOffer:C} | Cur. offer: {this.gameManager.CurrentOffer:C}{Environment.NewLine}" +
                                       "Deal or No Deal?";
         }
 
-        private void displayPersonalBriefcase()
+        private void displayFirstBriefcaseChosen()
         {
             this.summaryOutput.Text = $"Your briefcase: {this.gameManager.FirstBriefcaseId}";
         }
@@ -344,8 +349,7 @@ namespace DealOrNoDeal.View
         {
             if (this.gameManager.IsOnFinalRound())
             {
-                this.roundLabel.Text = "This is the final round.";
-                this.casesToOpenLabel.Text = "Please select a case below.";
+                this.displayFinalRoundInformation();
             }
             else
             {
@@ -357,6 +361,12 @@ namespace DealOrNoDeal.View
                     $"Round {this.gameManager.CurrentRound}: {casesInRound} {casesInRoundWord} to open.";
                 this.casesToOpenLabel.Text = $"{this.gameManager.BriefcasesRemainingInRound} {casesRemainingWord} left to open.";
             }
+        }
+
+        private void displayFinalRoundInformation()
+        {
+            this.roundLabel.Text = "This is the final round.";
+            this.casesToOpenLabel.Text = "Please select your final case.";
         }
 
         private static string getSingularPluralForm(string item, int amount)
