@@ -246,18 +246,10 @@ namespace DealOrNoDeal.View
 
         private void setupEndOfRound()
         {
-            this.updateBankerOffers();
+            this.gameManager.UpdateOfferValues();
             this.disableBriefcaseButtons();
             this.displayBankerOfferSummary();
             this.showDealButtons();
-        }
-
-        private void updateBankerOffers()
-        {
-            var offer = this.gameManager.GetOffer();
-            this.gameManager.CurrentOffer = offer;
-            this.gameManager.MaxOffer = Math.Max(offer, this.gameManager.MaxOffer);
-            this.gameManager.MinOffer = Math.Min(offer, this.gameManager.MinOffer);
         }
 
         private void dealButton_Click(object sender, RoutedEventArgs e)
