@@ -73,14 +73,6 @@ namespace DealOrNoDeal.Model
         public int BriefcasesRemainingInRound { get; set; }
 
         /// <summary>
-        ///     Gets or sets the current banker offer.
-        /// </summary>
-        /// <value>
-        ///     The current banker offer.
-        /// </value>
-        public int CurrentOffer => this.banker.CurrentOffer;
-
-        /// <summary>
         ///     Gets or sets the current round.
         /// </summary>
         /// <value>
@@ -121,6 +113,14 @@ namespace DealOrNoDeal.Model
         public int FinalBriefcaseNumber => this.FinalBriefcaseId + 1;
 
         /// <summary>
+        ///     Gets or sets the current banker offer.
+        /// </summary>
+        /// <value>
+        ///     The current banker offer.
+        /// </value>
+        public int CurrentOffer => this.banker.CurrentOffer;
+
+        /// <summary>
         ///     Gets or sets the maximum offer made by the Banker.
         /// </summary>
         /// <value>
@@ -143,7 +143,6 @@ namespace DealOrNoDeal.Model
         ///     The average Banker offer.
         /// </value>
         public int AverageOffer => this.banker.AverageOffer;
-
         #endregion
 
         #region Constructors
