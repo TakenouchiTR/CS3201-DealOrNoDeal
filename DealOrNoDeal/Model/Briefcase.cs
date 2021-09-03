@@ -5,6 +5,7 @@
     /// </summary>
     public class Briefcase
     {
+        #region Properties
         /// <summary>
         /// Gets or sets the briefcase identifier.
         /// </summary>
@@ -20,5 +21,17 @@
         /// The prize amount.
         /// </value>
         public int PrizeAmount { get; set; }
+        #endregion
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Briefcase"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="prizeAmount">The prize amount.</param>
+        public Briefcase(int id, int prizeAmount)
+        {
+            this.Id = id;
+            this.PrizeAmount = prizeAmount;
+        }
     }
 }
