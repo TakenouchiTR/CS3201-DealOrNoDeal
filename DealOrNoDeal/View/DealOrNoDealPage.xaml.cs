@@ -353,8 +353,8 @@ namespace DealOrNoDeal.View
             else
             {
                 int casesInRound = GameManager.CalculateBriefcasesToOpenInRound(this.gameManager.CurrentRound);
-                string casesInRoundWord = getCaseForm(casesInRound);
-                string casesRemainingWord = getCaseForm(this.gameManager.BriefcasesRemainingInRound);
+                string casesInRoundWord = getSingularPluralForm("case", casesInRound);
+                string casesRemainingWord = getSingularPluralForm("case", this.gameManager.BriefcasesRemainingInRound);
 
                 this.roundLabel.Text =
                     $"Round {this.gameManager.CurrentRound}: {casesInRound} {casesInRoundWord} to open.";
@@ -362,13 +362,14 @@ namespace DealOrNoDeal.View
             }
         }
 
-        private string getCaseForm(int amount)
+        private static string getSingularPluralForm(string item, int amount)
         {
+            //Does not handle "es", but it's not necessary for the current needs of the project
             if (amount == 1)
             {
-                return "case";
+                return item;
             }
-            return "cases";
+            return item + "s";
         }
         #endregion
     }
