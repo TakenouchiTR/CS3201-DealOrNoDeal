@@ -25,8 +25,11 @@ namespace DealOrNoDeal.Model
             float sumOfPrizesRemaining = prizesStillAvailable.Sum();
 
             float offer = sumOfPrizesRemaining / briefcasesToOpenNextRound / prizesStillAvailable.Count;
+            offer /= 100;
+            offer = (float) Math.Round(offer);
+            offer *= 100;
 
-            return (int) Math.Round(offer);
+            return (int) offer;
         }
     }
 }
