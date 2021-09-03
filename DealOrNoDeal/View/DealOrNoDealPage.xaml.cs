@@ -151,17 +151,22 @@ namespace DealOrNoDeal.View
 
             if (this.gameManager.HasFirstBriefcaseClaimed())
             {
-                var prizeAmount = this.gameManager.RemoveBriefcaseFromPlay(briefcaseId);
-                this.gameManager.BriefcasesRemainingInRound--;
-                this.findAndGrayOutGameDollarLabel(prizeAmount);
-            }
-            else
-            {
                 this.gameManager.FirstBriefcaseId = briefcaseId;
                 this.displayPersonalBriefcase();
             }
+            else
+            {
+                this.handleFirstBriefcaseClick(briefcaseId);
+            }
 
             this.updateCurrentRoundInformation();
+        }
+
+        private void handleFirstBriefcaseClick(int briefcaseId)
+        {
+            var prizeAmount = this.gameManager.RemoveBriefcaseFromPlay(briefcaseId);
+            this.gameManager.BriefcasesRemainingInRound--;
+            this.findAndGrayOutGameDollarLabel(prizeAmount);
         }
 
         private void findAndGrayOutGameDollarLabel(int amount)
