@@ -78,9 +78,7 @@ namespace DealOrNoDeal.Model
             float sumOfPrizesRemaining = prizesStillAvailable.Sum();
 
             var offer = sumOfPrizesRemaining / briefcasesToOpenNextRound / prizesStillAvailable.Count;
-            offer /= ROUND_AMOUNT;
-            offer = (float) Math.Round(offer);
-            offer *= ROUND_AMOUNT;
+            offer = roundNumber(offer);
 
             return (int) offer;
         }
@@ -106,6 +104,14 @@ namespace DealOrNoDeal.Model
             this.AverageOffer = (int) newAverage;
             ++this.numbersInAverage;
         }
+
+        private static float roundNumber(float number)
+        {
+            number /= ROUND_AMOUNT;
+            number = (float)Math.Round(number);
+            number *= ROUND_AMOUNT;
+
+            return number;
         }
     }
 }
