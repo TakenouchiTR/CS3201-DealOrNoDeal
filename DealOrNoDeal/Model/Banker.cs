@@ -97,9 +97,15 @@ namespace DealOrNoDeal.Model
         private void updateAverageOffer(int latestOffer)
         {
             //Rolling average
+            float newAverage = this.AverageOffer;
+
+            newAverage *= (float) this.numbersInAverage / (this.numbersInAverage + 1);
+            newAverage += (float) latestOffer / (this.numbersInAverage + 1);
+
+            //TODO ask if average has to be rounded
+            this.AverageOffer = (int) newAverage;
             ++this.numbersInAverage;
-            this.AverageOffer *= (this.numbersInAverage - 1) / this.numbersInAverage;
-            this.AverageOffer += latestOffer / this.numbersInAverage;
+        }
         }
     }
 }
