@@ -9,6 +9,47 @@ namespace DealOrNoDeal.Model
     /// </summary>
     public class Banker
     {
+        #region Properties
+        /// <summary>
+        ///     Gets or sets the current offer.
+        /// </summary>
+        /// <value>
+        ///     The current offer.
+        /// </value>
+        public int CurrentOffer { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the maximum offer made.
+        /// </summary>
+        /// <value>
+        ///     The maximum offer.
+        /// </value>
+        public int MaxOffer { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the minimum offer made.
+        /// </summary>
+        /// <value>
+        ///     The minimum Banker offer.
+        /// </value>
+        public int MinOffer { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the average offer made.
+        /// </summary>
+        /// <value>
+        ///     The average offer.
+        /// </value>
+        public int AverageOffer { get; set; }
+        #endregion
+
+        public Banker()
+        {
+            this.CurrentOffer = 0;
+            this.MinOffer = int.MaxValue;
+            this.MaxOffer = int.MinValue;
+            this.AverageOffer = 0;
+        }
 
         /// <summary>
         ///     Calculates the banker's offer.
@@ -20,7 +61,7 @@ namespace DealOrNoDeal.Model
         /// <returns>
         ///   An offer from the banker.
         /// </returns>
-        public static int CalculateOffer(IList<int> prizesStillAvailable, int briefcasesToOpenNextRound)
+        public int CalculateOffer(IList<int> prizesStillAvailable, int briefcasesToOpenNextRound)
         {
             float sumOfPrizesRemaining = prizesStillAvailable.Sum();
 

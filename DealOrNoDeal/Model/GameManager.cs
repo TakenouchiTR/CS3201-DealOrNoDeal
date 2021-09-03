@@ -59,6 +59,7 @@ namespace DealOrNoDeal.Model
 
         private readonly IList<Briefcase> briefcases;
 
+        private readonly Banker banker;
         #endregion
 
         #region Properties
@@ -77,7 +78,7 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The current banker offer.
         /// </value>
-        public int CurrentOffer { get; set; }
+        public int CurrentOffer => this.banker.CurrentOffer;
 
         /// <summary>
         ///     Gets or sets the current round.
@@ -125,7 +126,7 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The maximum Banker offer.
         /// </value>
-        public int MaxOffer { get; set; }
+        public int MaxOffer => this.banker.MaxOffer;
 
         /// <summary>
         ///     Gets or sets the minimum offer made by the Banker.
@@ -133,9 +134,15 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The minimum Banker offer.
         /// </value>
-        public int MinOffer { get; set; }
+        public int MinOffer => this.banker.MinOffer;
 
-        public int AverageOffer { get; set; }
+        /// <summary>
+        ///     Gets or sets the average offer made by the Banker.
+        /// </summary>
+        /// <value>
+        ///     The average Banker offer.
+        /// </value>
+        public int AverageOffer => this.banker.AverageOffer;
 
         #endregion
 
@@ -147,13 +154,11 @@ namespace DealOrNoDeal.Model
         public GameManager()
         {
             this.briefcases = new List<Briefcase>();
+            this.banker = new Banker();
             this.CurrentRound = 1;
             this.BriefcasesRemainingInRound = 6;
             this.FirstBriefcaseId = -1;
             this.FinalBriefcaseId = -1;
-            this.CurrentOffer = 0;
-            this.MinOffer = int.MaxValue;
-            this.MaxOffer = int.MinValue;
 
             var prizes = generateShuffledPrizeArray();
             this.populateBriefcaseList(prizes);
