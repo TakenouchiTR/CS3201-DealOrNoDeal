@@ -235,10 +235,11 @@ namespace DealOrNoDeal.Model
             return -1;
         }
 
+        //Todo Ask professor about this
         /// <summary>
         ///     Handles the end of round logic.
         ///     Precondition: None
-        ///     Postcondition: 
+        ///     Postcondition: None
         /// </summary>
         public void HandleEndOfRound()
         {
