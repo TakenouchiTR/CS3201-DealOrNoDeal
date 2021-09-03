@@ -222,8 +222,8 @@ namespace DealOrNoDeal.View
 
             this.dealButton.Content = $"Open {this.gameManager.FirstBriefcaseNumber}";
             this.noDealButton.Content = $"Open {this.gameManager.FinalBriefcaseNumber}";
-            this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxBankerOffer:C} | " +
-                                      $"Min. offer:  {this.gameManager.MinBankerOffer:C}";
+            this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxOffer:C} | " +
+                                      $"Min. offer:  {this.gameManager.MinOffer:C}";
         }
 
         private Button getLastBriefcase()
@@ -250,9 +250,9 @@ namespace DealOrNoDeal.View
         private void updateBankerOffers()
         {
             var offer = this.gameManager.GetOffer();
-            this.gameManager.CurrentBankerOffer = offer;
-            this.gameManager.MaxBankerOffer = Math.Max(offer, this.gameManager.MaxBankerOffer);
-            this.gameManager.MinBankerOffer = Math.Min(offer, this.gameManager.MinBankerOffer);
+            this.gameManager.CurrentOffer = offer;
+            this.gameManager.MaxOffer = Math.Max(offer, this.gameManager.MaxOffer);
+            this.gameManager.MinOffer = Math.Min(offer, this.gameManager.MinOffer);
         }
 
         private void dealButton_Click(object sender, RoutedEventArgs e)
@@ -269,7 +269,7 @@ namespace DealOrNoDeal.View
             {
                 this.summaryOutput.Text =
                     $"Your case contained: {firstBriefcasePrizeAmount:C}{Environment.NewLine}" +
-                    $"Accepted offer: {this.gameManager.CurrentBankerOffer:C}{Environment.NewLine}" +
+                    $"Accepted offer: {this.gameManager.CurrentOffer:C}{Environment.NewLine}" +
                     "GAME OVER";
             }
 
@@ -332,9 +332,9 @@ namespace DealOrNoDeal.View
 
         private void displayBankerOfferSummary()
         {
-            this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxBankerOffer:C} | " +
-                                      $"Min. offer:  {this.gameManager.MinBankerOffer:C}{Environment.NewLine}" +
-                                      $"Current offer: {this.gameManager.CurrentBankerOffer:C}{Environment.NewLine}" +
+            this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxOffer:C} | " +
+                                      $"Min. offer:  {this.gameManager.MinOffer:C}{Environment.NewLine}" +
+                                      $"Current offer: {this.gameManager.CurrentOffer:C}{Environment.NewLine}" +
                                       "Deal or No Deal?";
         }
 
