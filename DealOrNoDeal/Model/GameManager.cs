@@ -8,60 +8,10 @@ namespace DealOrNoDeal.Model
     public class GameManager
     {
         #region Data members
-
-        /// <summary>
-        ///     The total number of briefcases
-        /// </summary>
-        public const int BriefcaseCount = 26;
-
-        /// <summary>
-        ///     The maximum briefcases to open in a single round
-        /// </summary>
-        public const int MaxBriefcasesToOpen = 6;
-
-        /// <summary>
-        ///     The number of rounds in a game
-        /// </summary>
-        public const int NumberOfRounds = 10;
-
-        /// <summary>
-        ///     The prize amounts in ascending order
-        /// </summary>
-        public static readonly int[] PrizeAmounts = 
-        {
-            0,
-            1,
-            5,
-            10,
-            25,
-            50,
-            75,
-            100,
-            200,
-            300,
-            400,
-            500,
-            750,
-            1_000,
-            5_000,
-            10_000,
-            25_000,
-            50_000,
-            75_000,
-            100_000,
-            200_000,
-            300_000,
-            400_000,
-            500_000,
-            750_000,
-            1_000_000
-        };
-
         private readonly IList<Briefcase> briefcases;
-
         private readonly Banker banker;
-
         private readonly RoundManager roundManager;
+        private readonly PrizeManager prizeManager;
         #endregion
 
         #region Properties
@@ -158,6 +108,7 @@ namespace DealOrNoDeal.Model
             this.briefcases = new List<Briefcase>();
             this.banker = new Banker();
             this.roundManager = new RoundManager(gameType);
+            this.prizeManager = new PrizeManager(gameType);
 
             this.CurrentRound = 1;
             this.BriefcasesRemainingInRound = 6;
@@ -196,7 +147,7 @@ namespace DealOrNoDeal.Model
         
         private int[] generateShuffledPrizeArray()
         {
-            var shuffledArr = this.roundManager.;
+            var shuffledArr = (int[]) this.prizeManager.Prizes.Clone();
             var shuffledIndices = new HashSet<int>();
             var random = new Random();
 

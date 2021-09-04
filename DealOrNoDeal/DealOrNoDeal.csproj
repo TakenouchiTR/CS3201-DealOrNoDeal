@@ -131,6 +131,7 @@
     <Compile Include="Model\Briefcase.cs" />
     <Compile Include="Model\GameManager.cs" />
     <Compile Include="Model\GameType.cs" />
+    <Compile Include="Model\PrizeManager.cs" />
     <Compile Include="Model\RoundManager.cs" />
     <Compile Include="View\DealOrNoDealPage.xaml.cs">
       <DependentUpon>DealOrNoDealPage.xaml</DependentUpon>
