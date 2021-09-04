@@ -15,6 +15,7 @@ namespace DealOrNoDeal.Model
         #endregion
 
         #region Properties
+        public GameType GameType { get; private set; }
 
         /// <summary>
         ///     Gets or sets the briefcases remaining in the round.
@@ -35,6 +36,8 @@ namespace DealOrNoDeal.Model
         ///     The current round.
         /// </value>
         public int CurrentRound => this.roundManager.CurrentRound;
+
+        public int TotalBriefcases => this.roundManager.TotalBriefcases;
 
         /// <summary>
         ///     Gets or sets the identifier for the first briefcase selected.
@@ -113,6 +116,8 @@ namespace DealOrNoDeal.Model
             this.banker = new Banker();
             this.roundManager = new RoundManager(gameType);
             this.prizeManager = new PrizeManager(gameType);
+
+            this.GameType = gameType;
 
             this.FirstBriefcaseId = -1;
             this.FinalBriefcaseId = -1;
