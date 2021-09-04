@@ -45,7 +45,7 @@ namespace DealOrNoDeal.View
         {
             this.InitializeComponent();
             this.initializeUiDataAndControls();
-            this.gameManager = new GameManager();
+            this.gameManager = new GameManager(GameType.TenRoundStandard);
         }
 
         #endregion
@@ -385,7 +385,7 @@ namespace DealOrNoDeal.View
             }
             else
             {
-                int casesInRound = GameManager.GetBriefcasesToOpenInRound(this.gameManager.CurrentRound);
+                int casesInRound = this.gameManager.GetBriefcasesToOpenInRound(this.gameManager.CurrentRound);
                 string casesInRoundWord = getSingularPluralForm("case", casesInRound);
                 string casesRemainingWord = getSingularPluralForm("case", this.gameManager.BriefcasesRemainingInRound);
 

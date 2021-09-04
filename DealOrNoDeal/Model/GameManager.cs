@@ -22,7 +22,11 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The briefcases remaining in the round.
         /// </value>
-        public int BriefcasesRemainingInRound => this.roundManager.BriefcasesRemainingInRound;
+        public int BriefcasesRemainingInRound
+        {
+            get => this.roundManager.BriefcasesRemainingInRound;
+            set => this.roundManager.BriefcasesRemainingInRound = value;
+        }
 
         /// <summary>
         ///     Gets or sets the current round.
@@ -110,8 +114,6 @@ namespace DealOrNoDeal.Model
             this.roundManager = new RoundManager(gameType);
             this.prizeManager = new PrizeManager(gameType);
 
-            this.CurrentRound = 1;
-            this.BriefcasesRemainingInRound = 6;
             this.FirstBriefcaseId = -1;
             this.FinalBriefcaseId = -1;
 
@@ -138,7 +140,7 @@ namespace DealOrNoDeal.Model
 
         private void populateBriefcaseList(IList<int> prizes)
         {
-            for (var i = 0; i < BriefcaseCount; ++i)
+            for (var i = 0; i < this.roundManager.BriefcaseCount; ++i)
             {
                 Briefcase briefcase = new Briefcase(i, prizes[i]);
                 this.briefcases.Add(briefcase);
@@ -152,7 +154,7 @@ namespace DealOrNoDeal.Model
             var random = new Random();
 
             //Fisher-Yates shuffle algorithm
-            for (var i = BriefcaseCount - 1; i > 1; --i)
+            for (var i = this.roundManager.BriefcaseCount - 1; i > 1; --i)
             {
                 var targetIndex = random.Next(0, i);
                 if (shuffledIndices.Contains(targetIndex))
@@ -248,7 +250,7 @@ namespace DealOrNoDeal.Model
         /// </returns>
         public bool IsOnFinalRound()
         {
-            return this.CurrentRound == NumberOfRounds;
+            return this.roundManager.IsOnFinalRound();
         }
 
         /// <summary>
@@ -259,7 +261,7 @@ namespace DealOrNoDeal.Model
         /// </returns>
         public bool HasOpenedAllBriefcasesInRound()
         {
-            return this.BriefcasesRemainingInRound == 0;
+            return this.roundManager.HasOpenedAllBriefcasesInRound();
         }
 
         /// <summary>
