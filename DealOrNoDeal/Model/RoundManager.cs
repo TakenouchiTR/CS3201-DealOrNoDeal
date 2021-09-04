@@ -54,7 +54,7 @@ namespace DealOrNoDeal.Model
         
         private int NumberOfRounds => RoundAmounts[(int) this.GameType];
 
-        public int BriefcaseCount => CaseAmounts[(int) this.GameType];
+        public int TotalBriefcases => CaseAmounts[(int) this.GameType];
         #endregion
 
         #region Constructors

@@ -140,7 +140,7 @@ namespace DealOrNoDeal.Model
 
         private void populateBriefcaseList(IList<int> prizes)
         {
-            for (var i = 0; i < this.roundManager.BriefcaseCount; ++i)
+            for (var i = 0; i < this.roundManager.TotalBriefcases; ++i)
             {
                 Briefcase briefcase = new Briefcase(i, prizes[i]);
                 this.briefcases.Add(briefcase);
@@ -154,7 +154,7 @@ namespace DealOrNoDeal.Model
             var random = new Random();
 
             //Fisher-Yates shuffle algorithm
-            for (var i = this.roundManager.BriefcaseCount - 1; i > 1; --i)
+            for (var i = this.roundManager.TotalBriefcases - 1; i > 1; --i)
             {
                 var targetIndex = random.Next(0, i);
                 if (shuffledIndices.Contains(targetIndex))
