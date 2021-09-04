@@ -62,55 +62,55 @@
                 <StackPanel Orientation="Vertical">
                     <Border x:Name="label0Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$0" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label1Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$1" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label2Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$5" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label3Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$10" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label4Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$25" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label5Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$50" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label6Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$75" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label7Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$100" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label8Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$200" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label9Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$300" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label10Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$400" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label11Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$500" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label12Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$750" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
 
                 </StackPanel>
@@ -120,55 +120,55 @@
 
                     <Border x:Name="label13Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$1,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label14Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$5,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label15Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$10,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label16Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$25,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label17Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$50,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label18Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$75,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label19Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$100,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label20Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$200,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label21Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$300,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label22Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$400,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label23Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$500,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label24Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$750,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
                     <Border x:Name="label25Border" Style="{StaticResource MoneyAmountsBorderStyle}">
                         <TextBlock HorizontalAlignment="Center" Text="$1,000,000" VerticalAlignment="Center"
-                                   TextAlignment="Center" FontWeight="Bold" />
+                                   TextAlignment="Center" FontWeight="Bold" Foreground="Black" />
                     </Border>
 
                 </StackPanel>

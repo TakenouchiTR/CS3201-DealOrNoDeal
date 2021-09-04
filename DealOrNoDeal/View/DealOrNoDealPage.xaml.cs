@@ -35,7 +35,7 @@ namespace DealOrNoDeal.View
         private IList<Button> briefcaseButtons;
         private IList<Border> dollarAmountLabels;
 
-        private GameType gameType = GameType.FiveRound;
+        private GameType gameType = GameType.SevenRoundSyndicated;
 
         #endregion
 
@@ -82,12 +82,14 @@ namespace DealOrNoDeal.View
             for (int i = 0; i < labelsToHide; ++i)
             {
                 int index = this.dollarAmountLabels.Count - 1;
+
+                //Goes between right and left columns
                 if (i % 2 == 1)
                 {
                     index /= 2;
                 }
-
                 index -= i / 2;
+
                 this.dollarAmountLabels[index].Visibility = Visibility.Collapsed;
             }
         }
@@ -252,6 +254,11 @@ namespace DealOrNoDeal.View
         private static bool grayOutLabelIfMatchesDollarAmount(int amount, Border currDollarAmountLabel)
         {
             var matched = false;
+
+            if (currDollarAmountLabel.Visibility == Visibility.Collapsed)
+            {
+                return false;
+            }
 
             if (currDollarAmountLabel.Child is TextBlock dollarTextBlock)
             {
