@@ -385,7 +385,7 @@ namespace DealOrNoDeal.View
             }
             else
             {
-                int casesInRound = GameManager.CalculateBriefcasesToOpenInRound(this.gameManager.CurrentRound);
+                int casesInRound = GameManager.GetBriefcasesToOpenInRound(this.gameManager.CurrentRound);
                 string casesInRoundWord = getSingularPluralForm("case", casesInRound);
                 string casesRemainingWord = getSingularPluralForm("case", this.gameManager.BriefcasesRemainingInRound);
 

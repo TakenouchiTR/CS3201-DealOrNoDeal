@@ -60,6 +60,8 @@ namespace DealOrNoDeal.Model
         private readonly IList<Briefcase> briefcases;
 
         private readonly Banker banker;
+
+        private readonly RoundManager roundManager;
         #endregion
 
         #region Properties
@@ -70,7 +72,7 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The briefcases remaining in the round.
         /// </value>
-        public int BriefcasesRemainingInRound { get; set; }
+        public int BriefcasesRemainingInRound => this.roundManager.BriefcasesRemainingInRound;
 
         /// <summary>
         ///     Gets or sets the current round.
@@ -78,7 +80,7 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The current round.
         /// </value>
-        public int CurrentRound { get; set; }
+        public int CurrentRound => this.roundManager.CurrentRound;
 
         /// <summary>
         ///     Gets or sets the identifier for the first briefcase selected.
@@ -147,13 +149,16 @@ namespace DealOrNoDeal.Model
 
         #region Constructors
 
+        //Todo update this documentation
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameManager" /> class.
         /// </summary>
-        public GameManager()
+        public GameManager(GameType gameType)
         {
             this.briefcases = new List<Briefcase>();
             this.banker = new Banker();
+            this.roundManager = new RoundManager(gameType);
+
             this.CurrentRound = 1;
             this.BriefcasesRemainingInRound = 6;
             this.FirstBriefcaseId = -1;
@@ -168,21 +173,16 @@ namespace DealOrNoDeal.Model
         #region Methods
 
         /// <summary>
-        ///     Calculates the number of briefcases to open in a given round.
+        ///     Gets the number of briefcases to open in a given round.
         ///     Precondition : roundNumber &gt; 0 &amp;&amp; roundNumber &lt;= NumberOfRounds
-        ///     Postcondition: result = Math.Max(MaxBriefcasesToOpen - roundNumber + 1, 1)
+        ///     Postcondition: None
         /// </summary>
         /// <param name="roundNumber">The round number.</param>
         /// <returns>The number of briefcases to open in the round</returns>
         /// <exception cref="System.ArgumentException">roundNumber must be a positive integer below {NumberOfRounds + 1}.</exception>
-        public static int CalculateBriefcasesToOpenInRound(int roundNumber)
+        public int GetBriefcasesToOpenInRound(int roundNumber)
         {
-            if (roundNumber <= 0 || roundNumber > NumberOfRounds)
-            {
-                throw new ArgumentException($"roundNumber must be a positive integer below {NumberOfRounds + 1}.");
-            }
-
-            return Math.Max(MaxBriefcasesToOpen - roundNumber + 1, 1);
+            return this.roundManager.GetBriefcasesToOpenInRound(roundNumber);
         }
 
         private void populateBriefcaseList(IList<int> prizes)
@@ -194,9 +194,9 @@ namespace DealOrNoDeal.Model
             }
         }
         
-        private static int[] generateShuffledPrizeArray()
+        private int[] generateShuffledPrizeArray()
         {
-            var shuffledArr = (int[])PrizeAmounts.Clone();
+            var shuffledArr = this.roundManager.;
             var shuffledIndices = new HashSet<int>();
             var random = new Random();
 
@@ -248,7 +248,7 @@ namespace DealOrNoDeal.Model
         public void HandleEndOfRound()
         {
             var availablePrizes = this.briefcases.Select(briefcase => briefcase.PrizeAmount).ToList();
-            var briefcasesToOpenNextRound = CalculateBriefcasesToOpenInRound(this.CurrentRound + 1);
+            var briefcasesToOpenNextRound = GetBriefcasesToOpenInRound(this.CurrentRound + 1);
 
             this.banker.HandleEndOfRound(availablePrizes, briefcasesToOpenNextRound);
         }
@@ -275,6 +275,7 @@ namespace DealOrNoDeal.Model
             return -1;
         }
 
+        //todo ask about fields in postcondition
         /// <summary>
         ///     Moves to next round by incrementing Round property and setting
         ///     initial number of cases for that round
@@ -283,8 +284,7 @@ namespace DealOrNoDeal.Model
         /// </summary>
         public void MoveToNextRound()
         {
-            ++this.CurrentRound;
-            this.BriefcasesRemainingInRound = CalculateBriefcasesToOpenInRound(this.CurrentRound);
+            this.roundManager.MoveToNextRound();
         }
 
         /// <summary>
