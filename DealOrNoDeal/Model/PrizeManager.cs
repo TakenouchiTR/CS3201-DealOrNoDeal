@@ -161,6 +161,11 @@ namespace DealOrNoDeal.Model
         #endregion
 
         #region Methods
+
+        public static int[] GetPrizesForGameType(GameType gameType)
+        {
+            return PrizeArrays[(int) gameType];
+        }
         #endregion
     }
 }
