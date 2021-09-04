@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Text;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -34,6 +35,8 @@ namespace DealOrNoDeal.View
         private IList<Button> briefcaseButtons;
         private IList<Border> dollarAmountLabels;
 
+        private GameType gameType = GameType.FiveRound;
+
         #endregion
 
         #region Constructors
@@ -45,9 +48,12 @@ namespace DealOrNoDeal.View
         {
             this.InitializeComponent();
             this.initializeUiDataAndControls();
-            this.gameManager = new GameManager(GameType.TenRoundStandard);
-        }
 
+            this.gameManager = new GameManager(gameType);
+            this.hideUnusedBriefcaseButtons();
+            this.setDollarAmountLabelValues();
+            this.hideUnusedDollarAmountLabels();
+        }
         #endregion
 
         #region Methods
@@ -60,6 +66,49 @@ namespace DealOrNoDeal.View
             this.dollarAmountLabels = new List<Border>();
             this.buildBriefcaseButtonCollection();
             this.buildDollarAmountLabelCollection();
+        }
+
+        private void hideUnusedBriefcaseButtons()
+        {
+            for (int i = this.gameManager.TotalBriefcases; i < this.briefcaseButtons.Count; ++i)
+            {
+                this.briefcaseButtons[i].Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void hideUnusedDollarAmountLabels()
+        {
+            int labelsToHide = this.dollarAmountLabels.Count - this.gameManager.TotalBriefcases;
+            for (int i = 0; i < labelsToHide; ++i)
+            {
+                int index = this.dollarAmountLabels.Count - 1;
+                if (i % 2 == 1)
+                {
+                    index /= 2;
+                }
+
+                index -= i / 2;
+                this.dollarAmountLabels[index].Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void setDollarAmountLabelValues()
+        {
+            //Todo Make this for efficient
+            var prizeAmounts = PrizeManager.GetPrizesForGameType(this.gameManager.GameType);
+            var prizeLabelCount = this.dollarAmountLabels.Count;
+
+            for (int prizeIndex = 0, labelIndex = 0; prizeIndex < prizeAmounts.Length; ++prizeIndex, ++labelIndex)
+            {
+                var prizeAmount = prizeAmounts[prizeIndex];
+                if (labelIndex == prizeAmounts.Length / 2)
+                {
+                    labelIndex = prizeLabelCount / 2;
+                }
+
+                var prizeLabel = this.dollarAmountLabels[labelIndex].Child as TextBlock;
+                prizeLabel.Text = $"{prizeAmount:C0}";
+            }
         }
 
         private void setPageSize()
