@@ -149,24 +149,44 @@ namespace DealOrNoDeal.View
             var briefcaseId = this.getBriefcaseID(selectedBriefcase);
             selectedBriefcase.Visibility = Visibility.Collapsed;
 
-            if (this.gameManager.HasFirstBriefcaseClaimed())
+            if (this.gameManager.IsOnFinalRound())
+            {
+                handleFinalBriefcaseClick(briefcaseId);
+            }
+            else if (this.gameManager.HasFirstBriefcaseClaimed())
             {
                 var prizeAmount = this.gameManager.RemoveBriefcaseFromPlay(briefcaseId);
                 this.gameManager.BriefcasesRemainingInRound--;
                 this.findAndGrayOutGameDollarLabel(prizeAmount);
+                this.updateCurrentRoundInformation();
             }
             else
             {
                 this.handleFirstBriefcaseClick(briefcaseId);
             }
-
-            this.updateCurrentRoundInformation();
         }
 
         private void handleFirstBriefcaseClick(int briefcaseId)
         {
             this.gameManager.FirstBriefcaseId = briefcaseId;
             this.displayFirstBriefcaseChosen();
+            this.updateCurrentRoundInformation();
+        }
+
+        private void handleFinalBriefcaseClick(int briefcaseId)
+        {
+            this.displayChosenBriefcase(briefcaseId);
+
+            this.hideBriefcaseButtons();
+
+            //Todo make this smaller
+            int firstBriefcasePrizeAmount =
+                this.gameManager.GetPrizeAmountFromBriefcaseId(this.gameManager.FirstBriefcaseId);
+            int finalBriefcasePrizeAmount =
+                this.gameManager.GetPrizeAmountFromBriefcaseId(this.gameManager.FinalBriefcaseId);
+
+            this.findAndGrayOutGameDollarLabel(firstBriefcasePrizeAmount);
+            this.findAndGrayOutGameDollarLabel(finalBriefcasePrizeAmount);
         }
 
         private void findAndGrayOutGameDollarLabel(int amount)
@@ -282,40 +302,22 @@ namespace DealOrNoDeal.View
         private void dealButton_Click(object sender, RoutedEventArgs e)
         {
             var firstBriefcasePrizeAmount =
-                this.gameManager.GetPrizeAmountFromBriefcaseId(this.gameManager.FirstBriefcaseId);
-
-            if (this.gameManager.IsOnFinalRound())
-            {
-                this.summaryOutput.Text =
-                    $"Congratulations, you won {firstBriefcasePrizeAmount:C}";
-            }
-            else
-            {
-                this.summaryOutput.Text =
-                    $"Your case contained: {firstBriefcasePrizeAmount:C}{Environment.NewLine}" +
-                    $"Accepted offer: {this.gameManager.CurrentOffer:C}{Environment.NewLine}" +
-                    "GAME OVER";
-            }
+            this.gameManager.GetPrizeAmountFromBriefcaseId(this.gameManager.FirstBriefcaseId);
+        
+            this.summaryOutput.Text =
+                $"Your case contained: {firstBriefcasePrizeAmount:C}{Environment.NewLine}" +
+                $"Accepted offer: {this.gameManager.CurrentOffer:C}{Environment.NewLine}" +
+                "GAME OVER";
 
             this.hideDealButtons();
         }
 
         private void noDealButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.gameManager.IsOnFinalRound())
-            {
-                var prizeAmount = this.gameManager.GetPrizeAmountFromBriefcaseId(this.gameManager.FinalBriefcaseId);
-                this.summaryOutput.Text =
-                    $"Congratulations, you won {prizeAmount:C}";
-                this.hideDealButtons();
-            }
-            else
-            {
-                this.gameManager.MoveToNextRound();
-                this.enableBriefcaseButtons();
-                this.hideDealButtons();
-                this.updateCurrentRoundInformation();
-            }
+            this.gameManager.MoveToNextRound();
+            this.enableBriefcaseButtons();
+            this.hideDealButtons();
+            this.updateCurrentRoundInformation();
         }
 
         private void disableBriefcaseButtons()
@@ -354,6 +356,14 @@ namespace DealOrNoDeal.View
             }
         }
 
+        private void displayChosenBriefcase(int briefcaseId)
+        {
+            int prizeAmount = this.gameManager.GetPrizeAmountFromBriefcaseId(briefcaseId);
+
+            this.summaryOutput.Text =
+                $"Congratulations, you won {prizeAmount:C}";
+        }
+
         private void displayBankerOfferSummary()
         {
             this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxOffer:C} | " +
@@ -390,7 +400,7 @@ namespace DealOrNoDeal.View
             this.roundLabel.Text = "This is the final round.";
             this.casesToOpenLabel.Text = "Please select your final case.";
         }
-
+        
         private static string getSingularPluralForm(string item, int amount)
         {
             //Does not handle "es", but it's not necessary for the current needs of the project
