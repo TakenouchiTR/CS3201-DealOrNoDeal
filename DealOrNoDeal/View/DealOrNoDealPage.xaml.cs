@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Text;
@@ -31,12 +33,11 @@ namespace DealOrNoDeal.View
         /// </summary>
         public const int ApplicationWidth = 500;
 
-        private readonly GameManager gameManager;
+        private GameManager gameManager;
         private IList<Button> briefcaseButtons;
         private IList<Border> dollarAmountLabels;
-
-        private GameType gameType = GameType.SevenRoundSyndicated;
-
+        private IList<Button> gameTypeButtons;
+        
         #endregion
 
         #region Constructors
@@ -48,15 +49,16 @@ namespace DealOrNoDeal.View
         {
             this.InitializeComponent();
             this.initializeUiDataAndControls();
-
-            this.gameManager = new GameManager(gameType);
-            this.hideUnusedBriefcaseButtons();
-            this.setDollarAmountLabelValues();
-            this.hideUnusedDollarAmountLabels();
+            this.hideBriefcaseButtons();
         }
         #endregion
 
         #region Methods
+
+        private void resetGame()
+        {
+
+        }
 
         private void initializeUiDataAndControls()
         {
@@ -64,10 +66,12 @@ namespace DealOrNoDeal.View
 
             this.briefcaseButtons = new List<Button>();
             this.dollarAmountLabels = new List<Border>();
+            this.gameTypeButtons = new List<Button>();
             this.buildBriefcaseButtonCollection();
             this.buildDollarAmountLabelCollection();
+            this.buildGameTypeButtonCollection();
         }
-
+        
         private void hideUnusedBriefcaseButtons()
         {
             for (int i = this.gameManager.TotalBriefcases; i < this.briefcaseButtons.Count; ++i)
@@ -78,20 +82,21 @@ namespace DealOrNoDeal.View
 
         private void hideUnusedDollarAmountLabels()
         {
-            int labelsToHide = this.dollarAmountLabels.Count - this.gameManager.TotalBriefcases;
-            for (int i = 0; i < labelsToHide; ++i)
+            int[] indices = new int[] {0, 1, 11, 12, 13, 14, 24, 25};
+            foreach (var index in indices)
             {
-                int index = this.dollarAmountLabels.Count - 1;
-
-                //Goes between right and left columns
-                if (i % 2 == 1)
+                this.dollarAmountLabels[index].Background = new SolidColorBrush(Colors.Black);
+                this.dollarAmountLabels[index].Tag = "Skip";
+                if (this.dollarAmountLabels[index].Child is TextBlock prizeLabel)
                 {
-                    index /= 2;
+                    prizeLabel.Text = $"{-1:C0}";
                 }
-                index -= i / 2;
-
-                this.dollarAmountLabels[index].Visibility = Visibility.Collapsed;
             }
+        }
+
+        private static bool shouldSkipDollarAmountLabel(Border dollarAmountLabel)
+        {
+            return dollarAmountLabel.Tag != null && dollarAmountLabel.Tag.ToString() == "Skip";
         }
 
         private void setDollarAmountLabelValues()
@@ -103,13 +108,15 @@ namespace DealOrNoDeal.View
             for (int prizeIndex = 0, labelIndex = 0; prizeIndex < prizeAmounts.Length; ++prizeIndex, ++labelIndex)
             {
                 var prizeAmount = prizeAmounts[prizeIndex];
-                if (labelIndex == prizeAmounts.Length / 2)
+                while (shouldSkipDollarAmountLabel(this.dollarAmountLabels[labelIndex]))
                 {
-                    labelIndex = prizeLabelCount / 2;
+                    ++labelIndex;
                 }
 
-                var prizeLabel = this.dollarAmountLabels[labelIndex].Child as TextBlock;
-                prizeLabel.Text = $"{prizeAmount:C0}";
+                if (this.dollarAmountLabels[labelIndex].Child is TextBlock prizeLabel)
+                {
+                    prizeLabel.Text = $"{prizeAmount:C0}";
+                }
             }
         }
 
@@ -185,12 +192,33 @@ namespace DealOrNoDeal.View
 
             this.storeBriefCaseIndexInControlsTagProperty();
         }
+        
+        private void buildGameTypeButtonCollection()
+        {
+            this.gameTypeButtons.Clear();
+
+            this.gameTypeButtons.Add(this.fiveRoundButton);
+            this.gameTypeButtons.Add(this.sevenRoundButton);
+            this.gameTypeButtons.Add(this.sevenRoundSyndicatedButton);
+            this.gameTypeButtons.Add(this.tenRoundButton);
+            this.gameTypeButtons.Add(this.tenRoundSyndicatedButton);
+
+            storeGameTypeInControlsTagProperty();
+        }
 
         private void storeBriefCaseIndexInControlsTagProperty()
         {
             for (var i = 0; i < this.briefcaseButtons.Count; i++)
             {
                 this.briefcaseButtons[i].Tag = i;
+            }
+        }
+
+        private void storeGameTypeInControlsTagProperty()
+        {
+            for (var i = 0; i < this.gameTypeButtons.Count; i++)
+            {
+                this.gameTypeButtons[i].Tag = (GameType) i;
             }
         }
 
@@ -215,6 +243,20 @@ namespace DealOrNoDeal.View
             {
                 this.handleFirstBriefcaseClick(briefcaseId);
             }
+        }
+
+        private void gametype_Click(object sender, RoutedEventArgs e)
+        {
+            var gameTypeButton = (Button)sender;
+            var gameType = this.getGameTypeFromButton(gameTypeButton);
+
+            this.gameManager = new GameManager(gameType);
+            if (this.gameManager.GameType == GameType.FiveRound)
+            {
+                this.hideUnusedBriefcaseButtons();
+                this.hideUnusedDollarAmountLabels();
+            }
+            this.setDollarAmountLabelValues();
         }
 
         private void handleFirstBriefcaseClick(int briefcaseId)
@@ -278,6 +320,10 @@ namespace DealOrNoDeal.View
             return (int) selectedBriefCase.Tag;
         }
 
+        private GameType getGameTypeFromButton(Button gameTypeButton)
+        {
+            return (GameType) gameTypeButton.Tag;
+        }
         private void updateCurrentRoundInformation()
         {
             this.displayCurrentRoundInformation();
@@ -409,6 +455,22 @@ namespace DealOrNoDeal.View
             foreach (var briefcaseButton in this.briefcaseButtons)
             {
                 briefcaseButton.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void showGameTypeButtons()
+        {
+            foreach (var gameTypeButton in this.gameTypeButtons)
+            {
+                gameTypeButton.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void hideGameTypeButtons()
+        {
+            foreach (var gameTypeButton in this.gameTypeButtons)
+            {
+                gameTypeButton.Visibility = Visibility.Collapsed;
             }
         }
 
