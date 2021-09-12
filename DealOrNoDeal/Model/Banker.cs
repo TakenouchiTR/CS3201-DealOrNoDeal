@@ -5,7 +5,7 @@ using System.Linq;
 namespace DealOrNoDeal.Model
 {
     /// <summary>
-    ///     Calculates an offer for the player
+    ///     Handles calculation and statistics for offers
     /// </summary>
     public class Banker
     {
@@ -55,6 +55,9 @@ namespace DealOrNoDeal.Model
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Banker"/> class.
+        /// </summary>
         public Banker()
         {
             this.numbersInAverage = 0;
@@ -69,8 +72,32 @@ namespace DealOrNoDeal.Model
 
         #region Methods
 
+        /// <summary>
+        ///     Handles the end of round offer calculation and statistic tracking.
+        ///     Precondition:  prizesStillAvailable.Count &gt; 0 &amp;&amp; briefcasesToOpenNextRound &gt; 0
+        ///     Postcondition: CurrentOffer == CalculateOffer(prizesStillAvailable, briefcasesToOpenNextRound);
+        ///                    MinOffer == Math.Min(CurrentOffer, MinOffer@prev);
+        ///                    MaxOffer == Math.Max(CurrentOffer, MaxOffer@prev);
+        ///                    AverageOffer == &lt;average of all offer&gt;
+        /// </summary>
+        /// <param name="prizesStillAvailable">The prizes still available.</param>
+        /// <param name="briefcasesToOpenNextRound">The number briefcases to open next round.</param>
+        /// <exception cref="System.ArgumentException">
+        /// prizesStillAvailable.Count must contain at least one item
+        /// or
+        /// briefcasesToOpenNextRound must be positive
+        /// </exception>
         public void HandleEndOfRound(IList<int> prizesStillAvailable, int briefcasesToOpenNextRound)
         {
+            if (prizesStillAvailable.Count == 0)
+            {
+                throw new ArgumentException("prizesStillAvailable.Count must contain at least one item");
+            }
+            if (briefcasesToOpenNextRound <= 0)
+            {
+                throw new ArgumentException("briefcasesToOpenNextRound must be positive");
+            }
+
             var latestOffer = this.CalculateOffer(prizesStillAvailable, briefcasesToOpenNextRound);
             this.updateOfferValues(latestOffer);
         }
@@ -95,7 +122,7 @@ namespace DealOrNoDeal.Model
 
             return (int) offer;
         }
-
+        
         private void updateOfferValues(int latestOffer)
         {
             this.CurrentOffer = latestOffer;
@@ -105,6 +132,10 @@ namespace DealOrNoDeal.Model
             this.updateAverageOffer(latestOffer);
         }
 
+        /// <summary>
+        /// Updates the average offer.
+        /// </summary>
+        /// <param name="latestOffer">The latest offer.</param>
         private void updateAverageOffer(int latestOffer)
         {
             //Rolling average
@@ -112,8 +143,7 @@ namespace DealOrNoDeal.Model
 
             newAverage *= (float) this.numbersInAverage / (this.numbersInAverage + 1);
             newAverage += (float) latestOffer / (this.numbersInAverage + 1);
-
-            //TODO ask if average has to be rounded
+            
             this.AverageOffer = (int) newAverage;
             ++this.numbersInAverage;
         }

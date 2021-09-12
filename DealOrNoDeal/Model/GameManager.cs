@@ -18,6 +18,12 @@ namespace DealOrNoDeal.Model
 
         #region Properties
 
+        /// <summary>
+        ///     Gets the GameType for the current game.
+        /// </summary>
+        /// <value>
+        ///     The GameManager's GameType.
+        /// </value>
         public GameType GameType { get; }
 
         /// <summary>
@@ -40,6 +46,12 @@ namespace DealOrNoDeal.Model
         /// </value>
         public int CurrentRound => this.roundManager.CurrentRound;
 
+        /// <summary>
+        ///     Gets the total briefcases for the game.
+        /// </summary>
+        /// <value>
+        ///     The total briefcases for the game.
+        /// </value>
         public int TotalBriefcases => this.roundManager.TotalBriefcases;
 
         /// <summary>
@@ -125,7 +137,7 @@ namespace DealOrNoDeal.Model
             this.FirstBriefcaseId = -1;
             this.FinalBriefcaseId = -1;
 
-            var prizes = this.prizeManager.generateShuffledPrizeArray();
+            var prizes = this.prizeManager.GenerateShuffledPrizeArray();
             this.populateBriefcaseList(prizes);
         }
 

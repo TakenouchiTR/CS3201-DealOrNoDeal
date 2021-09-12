@@ -42,7 +42,7 @@ namespace DealOrNoDeal.View
 
         #region Properties
 
-        private StackPanel centerBriefcaseButtonRow => this.briefcaseButtonRows[this.briefcaseButtonRows.Count / 2];
+        private StackPanel CenterBriefcaseButtonRow => this.briefcaseButtonRows[this.briefcaseButtonRows.Count / 2];
 
         #endregion
 
@@ -257,7 +257,7 @@ namespace DealOrNoDeal.View
             switch (this.gameManager.GameType)
             {
                 case GameType.FiveRound:
-                    this.roundLabel.Text = "Welcome to Quickplay!";
+                    this.roundLabel.Text = "Welcome to Quick Play!";
                     break;
                 case GameType.SevenRoundStandard:
                     this.roundLabel.Text = "Welcome to 7 Round!";
@@ -460,7 +460,7 @@ namespace DealOrNoDeal.View
             if (briefcaseButton.Parent is StackPanel buttonPanel)
             {
                 buttonPanel.Children.Remove(briefcaseButton);
-                this.centerBriefcaseButtonRow.Children.Add(briefcaseButton);
+                this.CenterBriefcaseButtonRow.Children.Add(briefcaseButton);
             }
         }
 

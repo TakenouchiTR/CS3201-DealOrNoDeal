@@ -1,5 +1,11 @@
-﻿namespace DealOrNoDeal.Model
+﻿using System;
+using System.Collections.Generic;
+
+namespace DealOrNoDeal.Model
 {
+    /// <summary>
+    ///     Manages prize information
+    /// </summary>
     public class PrizeManager
     {
         #region Data members
@@ -148,14 +154,30 @@
 
         #region Properties
 
+        /// <summary>
+        ///     Gets the prizes for the game.
+        /// </summary>
+        /// <value>
+        ///     The prizes.
+        /// </value>
         public int[] Prizes => PrizeArrays[(int) this.GameType];
 
+        /// <summary>
+        ///     Gets the game type.
+        /// </summary>
+        /// <value>
+        ///     The game type.
+        /// </value>
         public GameType GameType { get; }
 
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="PrizeManager"/> class.
+        /// </summary>
+        /// <param name="gameType">Type of the game.</param>
         public PrizeManager(GameType gameType)
         {
             this.GameType = gameType;
@@ -165,12 +187,23 @@
 
         #region Methods
 
+        /// <summary>
+        /// Gets the ordered prize array for a specified GameType.
+        /// </summary>
+        /// <param name="gameType">The GameType for the game.</param>
+        /// <returns>An array of prizes</returns>
         public static int[] GetPrizesForGameType(GameType gameType)
         {
             return PrizeArrays[(int) gameType];
         }
 
-        public int[] generateShuffledPrizeArray()
+        /// <summary>
+        ///     Generates a shuffled array of prizes.
+        /// </summary>
+        /// <returns>
+        ///     A randomly ordered array of prizes.
+        /// </returns>
+        public int[] GenerateShuffledPrizeArray()
         {
             var shuffledArr = (int[])this.Prizes.Clone();
             var shuffledIndices = new HashSet<int>();
