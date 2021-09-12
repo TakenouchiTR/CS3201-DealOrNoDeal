@@ -655,13 +655,12 @@ namespace DealOrNoDeal.View
             this.casesToOpenLabel.Text = "Please select your case.";
             this.summaryOutput.Text = String.Empty;
 
-            this.setDollarAmountLabelValues(GameType.TenRoundStandard);
             this.resetDollarAmountLabelColors();
             if (this.gameManager.GameType == GameType.FiveRound)
             {
-
                 this.showHiddenDollarAmountLabels();
             }
+            this.setDollarAmountLabelValues(GameType.TenRoundStandard);
 
             this.enableBriefcaseButtons();
             this.hideBriefcaseButtons();
