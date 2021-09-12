@@ -223,8 +223,11 @@ namespace DealOrNoDeal.View
             this.gameManager = new GameManager(gameType);
             if (this.gameManager.GameType == GameType.FiveRound)
             {
-                this.hideUnusedBriefcaseButtons();
-                this.hideUnusedDollarAmountLabels();
+                this.setupFiveRoundGame();
+            }
+            else
+            {
+                this.setupSevenOrTenRoundGame();
             }
             this.setDollarAmountLabelValues();
         }
@@ -391,6 +394,7 @@ namespace DealOrNoDeal.View
         {
             return (GameType) gameTypeButton.Tag;
         }
+        
         private void updateCurrentRoundInformation()
         {
             this.displayCurrentRoundInformation();
