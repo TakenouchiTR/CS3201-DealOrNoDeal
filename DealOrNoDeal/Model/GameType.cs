@@ -2,7 +2,6 @@
 {
     // TODO Finish this
     /// <summary>
-    /// 
     /// </summary>
     public enum GameType
     {

@@ -5,15 +5,20 @@ using System.Linq;
 namespace DealOrNoDeal.Model
 {
     /// <summary>
-    ///   Calculates an offer for the player
+    ///     Calculates an offer for the player
     /// </summary>
     public class Banker
     {
-        private const float ROUND_AMOUNT = 100;
+        #region Data members
+
+        private const float PrizeRoundAmount = 100;
 
         private int numbersInAverage;
 
+        #endregion
+
         #region Properties
+
         /// <summary>
         ///     Gets or sets the current offer.
         /// </summary>
@@ -45,7 +50,10 @@ namespace DealOrNoDeal.Model
         ///     The average offer.
         /// </value>
         public int AverageOffer { get; set; }
+
         #endregion
+
+        #region Constructors
 
         public Banker()
         {
@@ -57,6 +65,10 @@ namespace DealOrNoDeal.Model
             this.AverageOffer = 0;
         }
 
+        #endregion
+
+        #region Methods
+
         public void HandleEndOfRound(IList<int> prizesStillAvailable, int briefcasesToOpenNextRound)
         {
             var latestOffer = this.CalculateOffer(prizesStillAvailable, briefcasesToOpenNextRound);
@@ -66,12 +78,13 @@ namespace DealOrNoDeal.Model
         /// <summary>
         ///     Calculates the banker's offer.
         ///     Precondition:  None
-        ///     Postcondition: offer = (Sum of remaining prizes) / (Number of briefcases to open next round) / (Total briefcases remaining)
+        ///     Postcondition: offer = (Sum of remaining prizes) / (Number of briefcases to open next round) / (Total briefcases
+        ///     remaining)
         /// </summary>
         /// <param name="prizesStillAvailable">The list of prizes still available.</param>
         /// <param name="briefcasesToOpenNextRound">The number of briefcases to open next round.</param>
         /// <returns>
-        ///   An offer from the banker.
+        ///     An offer from the banker.
         /// </returns>
         public int CalculateOffer(IList<int> prizesStillAvailable, int briefcasesToOpenNextRound)
         {
@@ -82,13 +95,13 @@ namespace DealOrNoDeal.Model
 
             return (int) offer;
         }
-        
+
         private void updateOfferValues(int latestOffer)
         {
             this.CurrentOffer = latestOffer;
             this.MinOffer = Math.Min(this.MinOffer, latestOffer);
             this.MaxOffer = Math.Max(this.MaxOffer, latestOffer);
-            
+
             this.updateAverageOffer(latestOffer);
         }
 
@@ -107,11 +120,13 @@ namespace DealOrNoDeal.Model
 
         private static float roundNumber(float number)
         {
-            number /= ROUND_AMOUNT;
-            number = (float)Math.Round(number);
-            number *= ROUND_AMOUNT;
+            number /= PrizeRoundAmount;
+            number = (float) Math.Round(number);
+            number *= PrizeRoundAmount;
 
             return number;
         }
+
+        #endregion
     }
 }

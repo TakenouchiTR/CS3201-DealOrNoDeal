@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI;
-using Windows.UI.Text;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,15 +20,17 @@ namespace DealOrNoDeal.View
     {
         #region Data members
 
-        private const string SkipTag = "Skip";
         /// <summary>
         ///     The application window height
         /// </summary>
         public const int ApplicationHeight = 500;
+
         /// <summary>
         ///     The application window width
         /// </summary>
         public const int ApplicationWidth = 500;
+
+        private const string SkipTag = "Skip";
 
         private GameManager gameManager;
         private IList<Button> briefcaseButtons;
@@ -58,6 +57,7 @@ namespace DealOrNoDeal.View
             this.initializeUiDataAndControls();
             this.hideBriefcaseButtons();
         }
+
         #endregion
 
         #region Methods
@@ -75,7 +75,7 @@ namespace DealOrNoDeal.View
             this.buildGameTypeButtonCollection();
             this.buildBriefcaseRowCollection();
         }
-        
+
         private static bool shouldSkipDollarAmountLabel(Border dollarAmountLabel)
         {
             return dollarAmountLabel.Tag != null && dollarAmountLabel.Tag.ToString() == SkipTag;
@@ -153,7 +153,7 @@ namespace DealOrNoDeal.View
 
             this.storeBriefCaseIndexInControlsTagProperty();
         }
-        
+
         private void buildGameTypeButtonCollection()
         {
             this.gameTypeButtons.Clear();
@@ -164,7 +164,7 @@ namespace DealOrNoDeal.View
             this.gameTypeButtons.Add(this.tenRoundButton);
             this.gameTypeButtons.Add(this.tenRoundSyndicatedButton);
 
-            storeGameTypeInControlsTagProperty();
+            this.storeGameTypeInControlsTagProperty();
         }
 
         private void buildBriefcaseRowCollection()
@@ -200,7 +200,7 @@ namespace DealOrNoDeal.View
 
             if (this.gameManager.IsOnFinalRound())
             {
-                handleFinalBriefcaseClick(briefcaseId);
+                this.handleFinalBriefcaseClick(briefcaseId);
             }
             else if (this.gameManager.HasFirstBriefcaseClaimed())
             {
@@ -217,7 +217,7 @@ namespace DealOrNoDeal.View
 
         private void gameTypeButton_Click(object sender, RoutedEventArgs e)
         {
-            var gameTypeButton = (Button)sender;
+            var gameTypeButton = (Button) sender;
             var gameType = this.getGameTypeFromButton(gameTypeButton);
 
             this.hideGameTypeButtons();
@@ -232,6 +232,7 @@ namespace DealOrNoDeal.View
             {
                 this.setupSevenOrTenRoundGame();
             }
+
             this.setDollarAmountLabelValues(this.gameManager.GameType);
             this.displayGameTypeMessage();
         }
@@ -241,13 +242,13 @@ namespace DealOrNoDeal.View
             this.hideUnusedBriefcaseButtons();
             this.hideUnusedDollarAmountLabels();
 
-            var rowCounts = new int[] { 5, 4, 4, 5, 0 };
+            var rowCounts = new[] {5, 4, 4, 5, 0};
             this.placeBriefcaseButtons(rowCounts);
         }
 
         private void setupSevenOrTenRoundGame()
         {
-            var rowCounts = new int[] { 6, 5, 5, 5, 5 };
+            var rowCounts = new[] {6, 5, 5, 5, 5};
             this.placeBriefcaseButtons(rowCounts);
         }
 
@@ -272,7 +273,7 @@ namespace DealOrNoDeal.View
 
         private void hideUnusedBriefcaseButtons()
         {
-            for (int i = this.gameManager.TotalBriefcases; i < this.briefcaseButtons.Count; ++i)
+            for (var i = this.gameManager.TotalBriefcases; i < this.briefcaseButtons.Count; ++i)
             {
                 this.briefcaseButtons[i].Visibility = Visibility.Collapsed;
             }
@@ -280,7 +281,7 @@ namespace DealOrNoDeal.View
 
         private void hideUnusedDollarAmountLabels()
         {
-            int[] indices = new int[] { 0, 1, 11, 12, 13, 14, 24, 25 };
+            int[] indices = {0, 1, 11, 12, 13, 14, 24, 25};
             foreach (var index in indices)
             {
                 this.dollarAmountLabels[index].Background = new SolidColorBrush(Colors.Black);
@@ -351,15 +352,15 @@ namespace DealOrNoDeal.View
             this.hideBriefcaseButtons();
 
             //Todo make this smaller
-            int firstBriefcasePrizeAmount =
+            var firstBriefcasePrizeAmount =
                 this.gameManager.GetPrizeAmountFromBriefcaseId(this.gameManager.FirstBriefcaseId);
-            int finalBriefcasePrizeAmount =
+            var finalBriefcasePrizeAmount =
                 this.gameManager.GetPrizeAmountFromBriefcaseId(this.gameManager.FinalBriefcaseId);
 
             this.findAndGrayOutGameDollarLabel(firstBriefcasePrizeAmount);
             this.findAndGrayOutGameDollarLabel(finalBriefcasePrizeAmount);
-            
-            promptToRestartGame();
+
+            this.promptToRestartGame();
         }
 
         private void findAndGrayOutGameDollarLabel(int amount)
@@ -404,7 +405,7 @@ namespace DealOrNoDeal.View
         {
             return (GameType) gameTypeButton.Tag;
         }
-        
+
         private void updateCurrentRoundInformation()
         {
             this.displayCurrentRoundInformation();
@@ -427,7 +428,7 @@ namespace DealOrNoDeal.View
             this.gameManager.FinalBriefcaseId = this.getBriefcaseID(lastBriefcaseButton);
             this.hideBriefcaseButtons();
 
-            placeLastTwoButtons(firstBriefcaseButton, lastBriefcaseButton);
+            this.placeLastTwoButtons(firstBriefcaseButton, lastBriefcaseButton);
 
             firstBriefcaseButton.Visibility = Visibility.Visible;
             lastBriefcaseButton.Visibility = Visibility.Visible;
@@ -435,13 +436,12 @@ namespace DealOrNoDeal.View
             this.summaryOutput.Text =
                 $"Offers: Min: {this.gameManager.MinOffer:C}; Max: {this.gameManager.MaxOffer:C}{Environment.NewLine}" +
                 $"\tAvg. offer: {this.gameManager.AverageOffer:C}{Environment.NewLine}";
-
         }
 
         private void placeLastTwoButtons(Button firstBriefcaseButton, Button lastBriefcaseButton)
         {
-            int firstBriefcaseId = getBriefcaseID(firstBriefcaseButton);
-            int lastBriefcaseId = getBriefcaseID(lastBriefcaseButton);
+            var firstBriefcaseId = this.getBriefcaseID(firstBriefcaseButton);
+            var lastBriefcaseId = this.getBriefcaseID(lastBriefcaseButton);
 
             if (firstBriefcaseId < lastBriefcaseId)
             {
@@ -468,7 +468,7 @@ namespace DealOrNoDeal.View
         {
             foreach (var button in this.briefcaseButtons)
             {
-                int buttonId = (int) button.Tag;
+                var buttonId = (int) button.Tag;
                 if (buttonId == targetId)
                 {
                     return button;
@@ -502,8 +502,8 @@ namespace DealOrNoDeal.View
         private void dealButton_Click(object sender, RoutedEventArgs e)
         {
             var firstBriefcasePrizeAmount =
-            this.gameManager.GetPrizeAmountFromBriefcaseId(this.gameManager.FirstBriefcaseId);
-        
+                this.gameManager.GetPrizeAmountFromBriefcaseId(this.gameManager.FirstBriefcaseId);
+
             this.summaryOutput.Text =
                 $"Your case contained: {firstBriefcasePrizeAmount:C}{Environment.NewLine}" +
                 $"Accepted offer: {this.gameManager.CurrentOffer:C}{Environment.NewLine}" +
@@ -584,7 +584,7 @@ namespace DealOrNoDeal.View
 
         private void displayChosenBriefcase(int briefcaseId)
         {
-            int prizeAmount = this.gameManager.GetPrizeAmountFromBriefcaseId(briefcaseId);
+            var prizeAmount = this.gameManager.GetPrizeAmountFromBriefcaseId(briefcaseId);
 
             this.summaryOutput.Text =
                 $"Congratulations, you won {prizeAmount:C}";
@@ -592,9 +592,9 @@ namespace DealOrNoDeal.View
 
         private void displayBankerOfferSummary()
         {
-            this.summaryOutput.Text = 
+            this.summaryOutput.Text =
                 $"Offers: Min: {this.gameManager.MinOffer:C}; Max: {this.gameManager.MaxOffer:C}{Environment.NewLine}" +
-                $"\tAvg. offer: {this.gameManager.AverageOffer:C}{Environment.NewLine}" +              
+                $"\tAvg. offer: {this.gameManager.AverageOffer:C}{Environment.NewLine}" +
                 $"Cur. offer: {this.gameManager.CurrentOffer:C}; Deal or No Deal?";
         }
 
@@ -611,13 +611,14 @@ namespace DealOrNoDeal.View
             }
             else
             {
-                int casesInRound = this.gameManager.GetBriefcasesToOpenInRound(this.gameManager.CurrentRound);
-                string casesInRoundWord = getSingularPluralForm("case", casesInRound);
-                string casesRemainingWord = getSingularPluralForm("case", this.gameManager.BriefcasesRemainingInRound);
+                var casesInRound = this.gameManager.GetBriefcasesToOpenInRound(this.gameManager.CurrentRound);
+                var casesInRoundWord = getSingularPluralForm("case", casesInRound);
+                var casesRemainingWord = getSingularPluralForm("case", this.gameManager.BriefcasesRemainingInRound);
 
                 this.roundLabel.Text =
                     $"Round {this.gameManager.CurrentRound}: {casesInRound} {casesInRoundWord} to open.";
-                this.casesToOpenLabel.Text = $"{this.gameManager.BriefcasesRemainingInRound} {casesRemainingWord} left to open.";
+                this.casesToOpenLabel.Text =
+                    $"{this.gameManager.BriefcasesRemainingInRound} {casesRemainingWord} left to open.";
             }
         }
 
@@ -629,7 +630,7 @@ namespace DealOrNoDeal.View
 
         private async void promptToRestartGame()
         {
-            ContentDialog restartDialog = new ContentDialog() {
+            var restartDialog = new ContentDialog {
                 Title = "Restart game?",
                 Content = $"Thank you for playing!{Environment.NewLine}" +
                           "Would you like to play again?",
@@ -653,13 +654,14 @@ namespace DealOrNoDeal.View
         {
             this.roundLabel.Text = "Welcome to Deal or No Deal!";
             this.casesToOpenLabel.Text = "Please select your case.";
-            this.summaryOutput.Text = String.Empty;
+            this.summaryOutput.Text = string.Empty;
 
             this.resetDollarAmountLabelColors();
             if (this.gameManager.GameType == GameType.FiveRound)
             {
                 this.showHiddenDollarAmountLabels();
             }
+
             this.setDollarAmountLabelValues(GameType.TenRoundStandard);
 
             this.enableBriefcaseButtons();
@@ -694,8 +696,10 @@ namespace DealOrNoDeal.View
             {
                 return item;
             }
+
             return item + "s";
         }
+
         #endregion
     }
 }

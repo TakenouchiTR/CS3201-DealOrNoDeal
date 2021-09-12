@@ -8,14 +8,17 @@ namespace DealOrNoDeal.Model
     public class GameManager
     {
         #region Data members
+
         private readonly IList<Briefcase> briefcases;
         private readonly Banker banker;
         private readonly RoundManager roundManager;
         private readonly PrizeManager prizeManager;
+
         #endregion
 
         #region Properties
-        public GameType GameType { get; private set; }
+
+        public GameType GameType { get; }
 
         /// <summary>
         ///     Gets or sets the briefcases remaining in the round.
@@ -62,7 +65,7 @@ namespace DealOrNoDeal.Model
         ///     The final briefcase's identifier.
         /// </value>
         public int FinalBriefcaseId { get; set; }
-        
+
         /// <summary>
         ///     Gets the final briefcase's number.
         /// </summary>
@@ -102,10 +105,11 @@ namespace DealOrNoDeal.Model
         ///     The average Banker offer.
         /// </value>
         public int AverageOffer => this.banker.AverageOffer;
+
         #endregion
 
         #region Constructors
-        
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameManager" /> class.
         /// </summary>
@@ -121,7 +125,7 @@ namespace DealOrNoDeal.Model
             this.FirstBriefcaseId = -1;
             this.FinalBriefcaseId = -1;
 
-            var prizes = generateShuffledPrizeArray();
+            var prizes = this.generateShuffledPrizeArray();
             this.populateBriefcaseList(prizes);
         }
 
@@ -146,11 +150,11 @@ namespace DealOrNoDeal.Model
         {
             for (var i = 0; i < this.roundManager.TotalBriefcases; ++i)
             {
-                Briefcase briefcase = new Briefcase(i, prizes[i]);
+                var briefcase = new Briefcase(i, prizes[i]);
                 this.briefcases.Add(briefcase);
             }
         }
-        
+
         private int[] generateShuffledPrizeArray()
         {
             var shuffledArr = (int[]) this.prizeManager.Prizes.Clone();
@@ -205,7 +209,7 @@ namespace DealOrNoDeal.Model
         public void HandleEndOfRound()
         {
             var availablePrizes = this.briefcases.Select(briefcase => briefcase.PrizeAmount).ToList();
-            var briefcasesToOpenNextRound = GetBriefcasesToOpenInRound(this.CurrentRound + 1);
+            var briefcasesToOpenNextRound = this.GetBriefcasesToOpenInRound(this.CurrentRound + 1);
 
             this.banker.HandleEndOfRound(availablePrizes, briefcasesToOpenNextRound);
         }

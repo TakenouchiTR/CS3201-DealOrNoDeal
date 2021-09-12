@@ -1,49 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DealOrNoDeal.Model
 {
     public class RoundManager
     {
-        #region Data fields
-        private static readonly int[] CaseAmounts = 
-        {
-            18,
-            26,
-            26,
-            26,
-            26
-        };
-
-        private static readonly int[] RoundAmounts = 
-        {
-            5,
-            7,
-            7,
-            10,
-            10
-        };
-
-        //todo rename this as well
-        private static readonly int[][] BriefcasesInRound =
-        {
-            new int[] { 6, 5, 3, 2, 1 },
-            new int[] { 8, 6, 4, 3, 2, 1, 1},
-            new int[] { 8, 6, 4, 3, 2, 1, 1},
-            new int[] { 6, 5, 4, 3, 2, 1, 1, 1, 1, 1},
-            new int[] { 6, 5, 4, 3, 2, 1, 1, 1, 1, 1}
-        };
-        #endregion
-
         #region Properties
-        public GameType GameType { get; private set; }
+
+        public GameType GameType { get; }
 
         public int CurrentRound { get; private set; }
-        
+
         /// <summary>
         ///     Gets or sets the briefcases remaining in the round.
         /// </summary>
@@ -51,13 +17,15 @@ namespace DealOrNoDeal.Model
         ///     The briefcases remaining in the round.
         /// </value>
         public int BriefcasesRemainingInRound { get; set; }
-        
+
         private int NumberOfRounds => RoundAmounts[(int) this.GameType];
 
         public int TotalBriefcases => CaseAmounts[(int) this.GameType];
+
         #endregion
 
         #region Constructors
+
         public RoundManager(GameType gameType)
         {
             this.GameType = gameType;
@@ -65,9 +33,11 @@ namespace DealOrNoDeal.Model
             this.CurrentRound = 1;
             this.BriefcasesRemainingInRound = this.GetBriefcasesToOpenInRound(1);
         }
+
         #endregion
 
         #region Methods
+
         public void MoveToNextRound()
         {
             ++this.CurrentRound;
@@ -99,6 +69,36 @@ namespace DealOrNoDeal.Model
         {
             return this.BriefcasesRemainingInRound == 0;
         }
+
+        #endregion
+
+        #region Data fields
+
+        private static readonly int[] CaseAmounts = {
+            18,
+            26,
+            26,
+            26,
+            26
+        };
+
+        private static readonly int[] RoundAmounts = {
+            5,
+            7,
+            7,
+            10,
+            10
+        };
+
+        //todo rename this as well
+        private static readonly int[][] BriefcasesInRound = {
+            new[] {6, 5, 3, 2, 1},
+            new[] {8, 6, 4, 3, 2, 1, 1},
+            new[] {8, 6, 4, 3, 2, 1, 1},
+            new[] {6, 5, 4, 3, 2, 1, 1, 1, 1, 1},
+            new[] {6, 5, 4, 3, 2, 1, 1, 1, 1, 1}
+        };
+
         #endregion
     }
 }

@@ -6,25 +6,29 @@
     public class Briefcase
     {
         #region Properties
+
         /// <summary>
-        /// Gets or sets the briefcase identifier.
+        ///     Gets or sets the briefcase identifier.
         /// </summary>
         /// <value>
-        /// The briefcase identifier.
+        ///     The briefcase identifier.
         /// </value>
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the prize amount.
+        ///     Gets or sets the prize amount.
         /// </summary>
         /// <value>
-        /// The prize amount.
+        ///     The prize amount.
         /// </value>
         public int PrizeAmount { get; set; }
+
         #endregion
 
+        #region Constructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Briefcase"/> class.
+        ///     Initializes a new instance of the <see cref="Briefcase" /> class.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="prizeAmount">The prize amount.</param>
@@ -33,5 +37,7 @@
             this.Id = id;
             this.PrizeAmount = prizeAmount;
         }
+
+        #endregion
     }
 }

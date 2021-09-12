@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DealOrNoDeal.Model
+﻿namespace DealOrNoDeal.Model
 {
     public class PrizeManager
     {
+        #region Data members
+
         #region Data fields
+
         //Todo rename this
         private static readonly int[][] PrizeArrays = {
-            new int[] {
+            new[] {
                 0,
                 5,
                 10,
@@ -31,7 +28,7 @@ namespace DealOrNoDeal.Model
                 75_000,
                 100_000
             },
-            new int[] {
+            new[] {
                 0,
                 1,
                 5,
@@ -59,7 +56,7 @@ namespace DealOrNoDeal.Model
                 750_000,
                 1_000_000
             },
-            new int[] {
+            new[] {
                 0,
                 1,
                 5,
@@ -86,9 +83,8 @@ namespace DealOrNoDeal.Model
                 250_000,
                 350_000,
                 500_000
-
             },
-            new int[] {
+            new[] {
                 0,
                 1,
                 5,
@@ -116,7 +112,7 @@ namespace DealOrNoDeal.Model
                 750_000,
                 1_000_000
             },
-            new int[] {
+            new[] {
                 0,
                 1,
                 5,
@@ -144,20 +140,27 @@ namespace DealOrNoDeal.Model
                 350_000,
                 500_000
             }
-};
+        };
+
+        #endregion
+
         #endregion
 
         #region Properties
-        public int[] Prizes => PrizeArrays[(int)this.GameType];
 
-        public GameType GameType { get; private set; }
+        public int[] Prizes => PrizeArrays[(int) this.GameType];
+
+        public GameType GameType { get; }
+
         #endregion
 
         #region Constructors
+
         public PrizeManager(GameType gameType)
         {
             this.GameType = gameType;
         }
+
         #endregion
 
         #region Methods
@@ -166,6 +169,7 @@ namespace DealOrNoDeal.Model
         {
             return PrizeArrays[(int) gameType];
         }
+
         #endregion
     }
 }
