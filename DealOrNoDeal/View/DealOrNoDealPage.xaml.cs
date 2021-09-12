@@ -290,7 +290,6 @@ namespace DealOrNoDeal.View
         {
             //Todo Make this for efficient
             var prizeAmounts = PrizeManager.GetPrizesForGameType(gameType);
-            var prizeLabelCount = this.dollarAmountLabels.Count;
 
             for (int prizeIndex = 0, labelIndex = 0; prizeIndex < prizeAmounts.Length; ++prizeIndex, ++labelIndex)
             {
