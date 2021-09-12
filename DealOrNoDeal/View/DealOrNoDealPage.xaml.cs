@@ -227,6 +227,103 @@ namespace DealOrNoDeal.View
             this.setDollarAmountLabelValues();
         }
 
+        private void setupFiveRoundGame()
+        {
+            this.hideUnusedBriefcaseButtons();
+            this.hideUnusedDollarAmountLabels();
+
+            var rowCounts = new int[] { 5, 4, 4, 5, 0 };
+            this.placeBriefcaseButtons(rowCounts);
+        }
+
+        private void setupSevenOrTenRoundGame()
+        {
+            this.showHiddenDollarAmountLabels();
+
+            var rowCounts = new int[] { 6, 5, 5, 5, 5 };
+            this.placeBriefcaseButtons(rowCounts);
+        }
+        
+        private void hideUnusedBriefcaseButtons()
+        {
+            for (int i = this.gameManager.TotalBriefcases; i < this.briefcaseButtons.Count; ++i)
+            {
+                this.briefcaseButtons[i].Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void hideUnusedDollarAmountLabels()
+        {
+            int[] indices = new int[] { 0, 1, 11, 12, 13, 14, 24, 25 };
+            foreach (var index in indices)
+            {
+                this.dollarAmountLabels[index].Background = new SolidColorBrush(Colors.Black);
+                this.dollarAmountLabels[index].Tag = SkipTag;
+                if (this.dollarAmountLabels[index].Child is TextBlock prizeLabel)
+                {
+                    prizeLabel.Text = $"{-1:C0}";
+                }
+            }
+        }
+
+        private void placeBriefcaseButtons(int[] rowCounts)
+        {
+            this.removeBriefcaseButtonsFromParent();
+            for (int rowIndex = 0, buttonIndex = 0; rowIndex < rowCounts.Length; ++rowIndex)
+            {
+                var currentRow = this.briefcaseButtonRows[rowIndex];
+
+                for (var i = 0; i < rowCounts[rowIndex]; ++i, ++buttonIndex)
+                {
+                    currentRow.Children.Add(this.briefcaseButtons[buttonIndex]);
+                }
+            }
+        }
+
+        private void setDollarAmountLabelValues()
+        {
+            //Todo Make this for efficient
+            var prizeAmounts = PrizeManager.GetPrizesForGameType(this.gameManager.GameType);
+            var prizeLabelCount = this.dollarAmountLabels.Count;
+
+            for (int prizeIndex = 0, labelIndex = 0; prizeIndex < prizeAmounts.Length; ++prizeIndex, ++labelIndex)
+            {
+                var prizeAmount = prizeAmounts[prizeIndex];
+                while (shouldSkipDollarAmountLabel(this.dollarAmountLabels[labelIndex]))
+                {
+                    ++labelIndex;
+                }
+
+                if (this.dollarAmountLabels[labelIndex].Child is TextBlock prizeLabel)
+                {
+                    prizeLabel.Text = $"{prizeAmount:C0}";
+                }
+            }
+        }
+
+        private void removeBriefcaseButtonsFromParent()
+        {
+            foreach (var briefcaseButton in this.briefcaseButtons)
+            {
+                if (briefcaseButton.Parent is StackPanel buttonPanel)
+                {
+                    buttonPanel.Children.Remove(briefcaseButton);
+                }
+            }
+        }
+
+        private void showHiddenDollarAmountLabels()
+        {
+            foreach (var dollarLabel in this.dollarAmountLabels)
+            {
+                if (dollarLabel.Tag != null && dollarLabel.Tag.ToString() == SkipTag)
+                {
+                    dollarLabel.Tag = null;
+                    dollarLabel.Background = new SolidColorBrush(Colors.Yellow);
+                }
+            }
+        }
+
         private void handleFirstBriefcaseClick(int briefcaseId)
         {
             this.gameManager.FirstBriefcaseId = briefcaseId;
