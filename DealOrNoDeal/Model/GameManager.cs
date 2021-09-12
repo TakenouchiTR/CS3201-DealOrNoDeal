@@ -105,8 +105,7 @@ namespace DealOrNoDeal.Model
         #endregion
 
         #region Constructors
-
-        //Todo update this documentation
+        
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameManager" /> class.
         /// </summary>
