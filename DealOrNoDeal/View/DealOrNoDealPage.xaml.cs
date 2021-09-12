@@ -62,11 +62,6 @@ namespace DealOrNoDeal.View
 
         #region Methods
 
-        private void resetGame()
-        {
-
-        }
-
         private void initializeUiDataAndControls()
         {
             this.setPageSize();
@@ -79,52 +74,8 @@ namespace DealOrNoDeal.View
             this.buildGameTypeButtonCollection();
         }
         
-        private void hideUnusedBriefcaseButtons()
-        {
-            for (int i = this.gameManager.TotalBriefcases; i < this.briefcaseButtons.Count; ++i)
-            {
-                this.briefcaseButtons[i].Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void hideUnusedDollarAmountLabels()
-        {
-            int[] indices = new int[] {0, 1, 11, 12, 13, 14, 24, 25};
-            foreach (var index in indices)
-            {
-                this.dollarAmountLabels[index].Background = new SolidColorBrush(Colors.Black);
-                this.dollarAmountLabels[index].Tag = "Skip";
-                if (this.dollarAmountLabels[index].Child is TextBlock prizeLabel)
-                {
-                    prizeLabel.Text = $"{-1:C0}";
-                }
-            }
-        }
-
         private static bool shouldSkipDollarAmountLabel(Border dollarAmountLabel)
         {
-            return dollarAmountLabel.Tag != null && dollarAmountLabel.Tag.ToString() == "Skip";
-        }
-
-        private void setDollarAmountLabelValues()
-        {
-            //Todo Make this for efficient
-            var prizeAmounts = PrizeManager.GetPrizesForGameType(this.gameManager.GameType);
-            var prizeLabelCount = this.dollarAmountLabels.Count;
-
-            for (int prizeIndex = 0, labelIndex = 0; prizeIndex < prizeAmounts.Length; ++prizeIndex, ++labelIndex)
-            {
-                var prizeAmount = prizeAmounts[prizeIndex];
-                while (shouldSkipDollarAmountLabel(this.dollarAmountLabels[labelIndex]))
-                {
-                    ++labelIndex;
-                }
-
-                if (this.dollarAmountLabels[labelIndex].Child is TextBlock prizeLabel)
-                {
-                    prizeLabel.Text = $"{prizeAmount:C0}";
-                }
-            }
             return dollarAmountLabel.Tag != null && dollarAmountLabel.Tag.ToString() == SkipTag;
         }
 
@@ -566,6 +517,9 @@ namespace DealOrNoDeal.View
             {
                 Application.Current.Exit();
             }
+        }
+
+        private void resetGame()
         }
 
         private static string getSingularPluralForm(string item, int amount)
