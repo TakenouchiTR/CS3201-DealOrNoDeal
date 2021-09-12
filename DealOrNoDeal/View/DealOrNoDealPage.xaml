@@ -187,7 +187,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0" MinWidth="280">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel x:Name="briefcaseRow4" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button x:Name="case21" Content="22" Style="{StaticResource GameCaseStyle}"
                                 Click="briefcase_Click" />
                         <Button x:Name="case22" Content="23" Style="{StaticResource GameCaseStyle}"
@@ -204,7 +204,7 @@
                 </Grid>
 
                 <Grid Grid.Row="1" MinWidth="280">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel x:Name="briefcaseRow3" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button x:Name="case16" Content="17" Style="{StaticResource GameCaseStyle}"
                                 Click="briefcase_Click" />
                         <Button x:Name="case17" Content="18" Style="{StaticResource GameCaseStyle}"
@@ -221,7 +221,7 @@
                 </Grid>
 
                 <Grid Grid.Row="2" MinWidth="280">
-                    <StackPanel x:Name="centerStackPanel" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel x:Name="briefcaseRow2" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button x:Name="case11" Content="12" Style="{StaticResource GameCaseStyle}"
                                 Click="briefcase_Click" />
                         <Button x:Name="case12" Content="13" Style="{StaticResource GameCaseStyle}"
@@ -238,7 +238,7 @@
                 </Grid>
 
                 <Grid Grid.Row="3" MinWidth="280">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel x:Name="briefcaseRow1" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button x:Name="case6" Content="7" Style="{StaticResource GameCaseStyle}"
                                 Click="briefcase_Click" />
                         <Button x:Name="case7" Content="8" Style="{StaticResource GameCaseStyle}"
@@ -255,7 +255,7 @@
                 </Grid>
 
                 <Grid Grid.Row="4" MinWidth="280">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel x:Name="briefcaseRow0" Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button x:Name="case0" Content="1" Style="{StaticResource GameCaseStyle}"
                                 Click="briefcase_Click" />
                         <Button x:Name="case1" Content="2" Style="{StaticResource GameCaseStyle}"
