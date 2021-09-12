@@ -1,0 +1,5 @@
+I am not aware of any bugs or missing functionality.
+
+The only thing that might be odd is the game resetting. I could not find anything about how to restart a WPF application that worked. Many of the posts and articles regarding it appear to be outdated, as they mention methods and properties that aren't present in the version I'm working in. The game restarts by setting all the UI elements back to their default values.
+
+There are buttons in the menu for selecting a game type. You will be prompted to select a new game type whenever you choose to play again. I hope this makes it a little more convenient for you.
