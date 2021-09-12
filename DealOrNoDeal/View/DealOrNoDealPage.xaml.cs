@@ -520,6 +520,21 @@ namespace DealOrNoDeal.View
         }
 
         private void resetGame()
+        {
+            this.roundLabel.Text = "Welcome to Deal or No Deal!";
+            this.casesToOpenLabel.Text = "Please select your case.";
+            this.summaryOutput.Text = String.Empty;
+            this.resetDollarAmountLabelColors();
+            this.hideBriefcaseButtons();
+            this.showGameTypeButtons();
+        }
+
+        private void resetDollarAmountLabelColors()
+        {
+            foreach (var dollarAmountLabel in this.dollarAmountLabels)
+            {
+                dollarAmountLabel.Background = new SolidColorBrush(Colors.Yellow);
+            }
         }
 
         private static string getSingularPluralForm(string item, int amount)
