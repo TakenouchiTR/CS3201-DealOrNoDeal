@@ -148,7 +148,7 @@ namespace DealOrNoDeal.Model
                 this.briefcases.Add(briefcase);
             }
         }
-        
+
         /// <summary>
         ///     Removes the specified briefcase from play.
         ///     Precondition: id &gt;= 0 &amp;&amp; id &amp; briefcases.Count &amp;&amp;

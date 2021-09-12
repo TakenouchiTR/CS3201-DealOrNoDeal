@@ -46,7 +46,6 @@ namespace DealOrNoDeal.Model
         /// </value>
         public GameType GameType { get; }
 
-
         /// <summary>
         ///     Gets the current round.
         /// </summary>
@@ -78,7 +77,7 @@ namespace DealOrNoDeal.Model
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RoundManager"/> class.
+        ///     Initializes a new instance of the <see cref="RoundManager" /> class.
         /// </summary>
         /// <param name="gameType">Type of the game.</param>
         public RoundManager(GameType gameType)
@@ -97,7 +96,7 @@ namespace DealOrNoDeal.Model
         ///     Proceeds to the next round.
         ///     Precondition: CurrentRound != NumberOfRounds
         ///     Postcondition: CurrentRound == CurrentRound@prev + 1;
-        ///                    BriefcasesRemainingInRound = GetBriefcasesToOpenInRound(CurrentRound)
+        ///     BriefcasesRemainingInRound = GetBriefcasesToOpenInRound(CurrentRound)
         /// </summary>
         public void MoveToNextRound()
         {
@@ -129,7 +128,7 @@ namespace DealOrNoDeal.Model
         ///     PostCondition: None
         /// </summary>
         /// <returns>
-        ///   <c>true</c> if [is on final round]; otherwise, <c>false</c>.
+        ///     <c>true</c> if [is on final round]; otherwise, <c>false</c>.
         /// </returns>
         public bool IsOnFinalRound()
         {

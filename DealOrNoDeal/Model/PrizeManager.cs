@@ -175,7 +175,7 @@ namespace DealOrNoDeal.Model
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="PrizeManager"/> class.
+        ///     Initializes a new instance of the <see cref="PrizeManager" /> class.
         /// </summary>
         /// <param name="gameType">Type of the game.</param>
         public PrizeManager(GameType gameType)
@@ -188,7 +188,7 @@ namespace DealOrNoDeal.Model
         #region Methods
 
         /// <summary>
-        /// Gets the ordered prize array for a specified GameType.
+        ///     Gets the ordered prize array for a specified GameType.
         /// </summary>
         /// <param name="gameType">The GameType for the game.</param>
         /// <returns>An array of prizes</returns>
@@ -205,7 +205,7 @@ namespace DealOrNoDeal.Model
         /// </returns>
         public int[] GenerateShuffledPrizeArray()
         {
-            var shuffledArr = (int[])this.Prizes.Clone();
+            var shuffledArr = (int[]) this.Prizes.Clone();
             var shuffledIndices = new HashSet<int>();
             var random = new Random();
 

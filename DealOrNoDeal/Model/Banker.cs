@@ -56,7 +56,7 @@ namespace DealOrNoDeal.Model
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Banker"/> class.
+        ///     Initializes a new instance of the <see cref="Banker" /> class.
         /// </summary>
         public Banker()
         {
@@ -76,16 +76,16 @@ namespace DealOrNoDeal.Model
         ///     Handles the end of round offer calculation and statistic tracking.
         ///     Precondition:  prizesStillAvailable.Count &gt; 0 &amp;&amp; briefcasesToOpenNextRound &gt; 0
         ///     Postcondition: CurrentOffer == CalculateOffer(prizesStillAvailable, briefcasesToOpenNextRound);
-        ///                    MinOffer == Math.Min(CurrentOffer, MinOffer@prev);
-        ///                    MaxOffer == Math.Max(CurrentOffer, MaxOffer@prev);
-        ///                    AverageOffer == &lt;average of all offer&gt;
+        ///     MinOffer == Math.Min(CurrentOffer, MinOffer@prev);
+        ///     MaxOffer == Math.Max(CurrentOffer, MaxOffer@prev);
+        ///     AverageOffer == &lt;average of all offer&gt;
         /// </summary>
         /// <param name="prizesStillAvailable">The prizes still available.</param>
         /// <param name="briefcasesToOpenNextRound">The number briefcases to open next round.</param>
         /// <exception cref="System.ArgumentException">
-        /// prizesStillAvailable.Count must contain at least one item
-        /// or
-        /// briefcasesToOpenNextRound must be positive
+        ///     prizesStillAvailable.Count must contain at least one item
+        ///     or
+        ///     briefcasesToOpenNextRound must be positive
         /// </exception>
         public void HandleEndOfRound(IList<int> prizesStillAvailable, int briefcasesToOpenNextRound)
         {
@@ -93,6 +93,7 @@ namespace DealOrNoDeal.Model
             {
                 throw new ArgumentException("prizesStillAvailable.Count must contain at least one item");
             }
+
             if (briefcasesToOpenNextRound <= 0)
             {
                 throw new ArgumentException("briefcasesToOpenNextRound must be positive");
@@ -122,7 +123,7 @@ namespace DealOrNoDeal.Model
 
             return (int) offer;
         }
-        
+
         private void updateOfferValues(int latestOffer)
         {
             this.CurrentOffer = latestOffer;
@@ -133,7 +134,7 @@ namespace DealOrNoDeal.Model
         }
 
         /// <summary>
-        /// Updates the average offer.
+        ///     Updates the average offer.
         /// </summary>
         /// <param name="latestOffer">The latest offer.</param>
         private void updateAverageOffer(int latestOffer)
@@ -143,7 +144,7 @@ namespace DealOrNoDeal.Model
 
             newAverage *= (float) this.numbersInAverage / (this.numbersInAverage + 1);
             newAverage += (float) latestOffer / (this.numbersInAverage + 1);
-            
+
             this.AverageOffer = (int) newAverage;
             ++this.numbersInAverage;
         }
