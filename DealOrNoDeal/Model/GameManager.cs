@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace DealOrNoDeal.Model
@@ -12,7 +11,6 @@ namespace DealOrNoDeal.Model
         private readonly IList<Briefcase> briefcases;
         private readonly Banker banker;
         private readonly RoundManager roundManager;
-        private readonly PrizeManager prizeManager;
 
         #endregion
 
@@ -63,28 +61,12 @@ namespace DealOrNoDeal.Model
         public int FirstBriefcaseId { get; set; }
 
         /// <summary>
-        ///     Gets the first briefcase's number.
-        /// </summary>
-        /// <value>
-        ///     The first briefcase's number.
-        /// </value>
-        public int FirstBriefcaseNumber => this.FirstBriefcaseId + 1;
-
-        /// <summary>
         ///     Gets or sets the identifier for the final briefcase remaining.
         /// </summary>
         /// <value>
         ///     The final briefcase's identifier.
         /// </value>
         public int FinalBriefcaseId { get; set; }
-
-        /// <summary>
-        ///     Gets the final briefcase's number.
-        /// </summary>
-        /// <value>
-        ///     The final briefcase's number.
-        /// </value>
-        public int FinalBriefcaseNumber => this.FinalBriefcaseId + 1;
 
         /// <summary>
         ///     Gets or sets the current banker offer.
@@ -130,14 +112,14 @@ namespace DealOrNoDeal.Model
             this.briefcases = new List<Briefcase>();
             this.banker = new Banker();
             this.roundManager = new RoundManager(gameType);
-            this.prizeManager = new PrizeManager(gameType);
 
             this.GameType = gameType;
 
             this.FirstBriefcaseId = -1;
             this.FinalBriefcaseId = -1;
 
-            var prizes = this.prizeManager.GenerateShuffledPrizeArray();
+            var prizeManager = new PrizeManager(gameType);
+            var prizes = prizeManager.GenerateShuffledPrizeArray();
             this.populateBriefcaseList(prizes);
         }
 
