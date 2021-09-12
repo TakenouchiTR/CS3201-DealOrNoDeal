@@ -40,6 +40,11 @@ namespace DealOrNoDeal.View
         private IList<StackPanel> briefcaseButtonRows;
 
         #endregion
+
+        #region Properties
+
+        private StackPanel centerBriefcaseButtonRow => this.briefcaseButtonRows[this.briefcaseButtonRows.Count / 2];
+
         #endregion
 
         #region Constructors
