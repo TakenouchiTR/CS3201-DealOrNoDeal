@@ -232,7 +232,7 @@ namespace DealOrNoDeal.View
             {
                 this.setupSevenOrTenRoundGame();
             }
-            this.setDollarAmountLabelValues();
+            this.setDollarAmountLabelValues(this.gameManager.GameType);
         }
 
         private void setupFiveRoundGame()
@@ -288,10 +288,10 @@ namespace DealOrNoDeal.View
             }
         }
 
-        private void setDollarAmountLabelValues()
+        private void setDollarAmountLabelValues(GameType gameType)
         {
             //Todo Make this for efficient
-            var prizeAmounts = PrizeManager.GetPrizesForGameType(this.gameManager.GameType);
+            var prizeAmounts = PrizeManager.GetPrizesForGameType(gameType);
             var prizeLabelCount = this.dollarAmountLabels.Count;
 
             for (int prizeIndex = 0, labelIndex = 0; prizeIndex < prizeAmounts.Length; ++prizeIndex, ++labelIndex)
