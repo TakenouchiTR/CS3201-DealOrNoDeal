@@ -125,7 +125,7 @@ namespace DealOrNoDeal.Model
             this.FirstBriefcaseId = -1;
             this.FinalBriefcaseId = -1;
 
-            var prizes = this.generateShuffledPrizeArray();
+            var prizes = this.prizeManager.generateShuffledPrizeArray();
             this.populateBriefcaseList(prizes);
         }
 
@@ -154,30 +154,7 @@ namespace DealOrNoDeal.Model
                 this.briefcases.Add(briefcase);
             }
         }
-
-        private int[] generateShuffledPrizeArray()
-        {
-            var shuffledArr = (int[]) this.prizeManager.Prizes.Clone();
-            var shuffledIndices = new HashSet<int>();
-            var random = new Random();
-
-            //Fisher-Yates shuffle algorithm
-            for (var i = this.roundManager.TotalBriefcases - 1; i > 1; --i)
-            {
-                var targetIndex = random.Next(0, i);
-                if (shuffledIndices.Contains(targetIndex))
-                {
-                    continue;
-                }
-
-                (shuffledArr[i], shuffledArr[targetIndex]) = (shuffledArr[targetIndex], shuffledArr[i]);
-
-                shuffledIndices.Add(targetIndex);
-            }
-
-            return shuffledArr;
-        }
-
+        
         /// <summary>
         ///     Removes the specified briefcase from play.
         ///     Precondition: id &gt;= 0 &amp;&amp; id &amp; briefcases.Count &amp;&amp;

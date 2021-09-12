@@ -170,6 +170,29 @@
             return PrizeArrays[(int) gameType];
         }
 
+        public int[] generateShuffledPrizeArray()
+        {
+            var shuffledArr = (int[])this.Prizes.Clone();
+            var shuffledIndices = new HashSet<int>();
+            var random = new Random();
+
+            //Fisher-Yates shuffle algorithm
+            for (var i = shuffledArr.Length; i > 1; --i)
+            {
+                var targetIndex = random.Next(0, i);
+                if (shuffledIndices.Contains(targetIndex))
+                {
+                    continue;
+                }
+
+                (shuffledArr[i], shuffledArr[targetIndex]) = (shuffledArr[targetIndex], shuffledArr[i]);
+
+                shuffledIndices.Add(targetIndex);
+            }
+
+            return shuffledArr;
+        }
+
         #endregion
     }
 }
