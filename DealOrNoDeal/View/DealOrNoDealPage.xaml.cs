@@ -233,6 +233,7 @@ namespace DealOrNoDeal.View
                 this.setupSevenOrTenRoundGame();
             }
             this.setDollarAmountLabelValues(this.gameManager.GameType);
+            this.displayGameTypeMessage();
         }
 
         private void setupFiveRoundGame()
@@ -249,7 +250,26 @@ namespace DealOrNoDeal.View
             var rowCounts = new int[] { 6, 5, 5, 5, 5 };
             this.placeBriefcaseButtons(rowCounts);
         }
-        
+
+        private void displayGameTypeMessage()
+        {
+            switch (this.gameManager.GameType)
+            {
+                case GameType.FiveRound:
+                    this.roundLabel.Text = "Welcome to Quickplay!";
+                    break;
+                case GameType.SevenRoundStandard:
+                    this.roundLabel.Text = "Welcome to 7 Round!";
+                    break;
+                case GameType.SevenRoundSyndicated:
+                    this.roundLabel.Text = "Welcome to 7 Round (Syndicated)!";
+                    break;
+                case GameType.TenRoundSyndicated:
+                    this.roundLabel.Text = "Welcome to DonD (Syndicated)!";
+                    break;
+            }
+        }
+
         private void hideUnusedBriefcaseButtons()
         {
             for (int i = this.gameManager.TotalBriefcases; i < this.briefcaseButtons.Count; ++i)
