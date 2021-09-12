@@ -202,7 +202,7 @@ namespace DealOrNoDeal.Model
             var random = new Random();
 
             //Fisher-Yates shuffle algorithm
-            for (var i = shuffledArr.Length; i > 1; --i)
+            for (var i = shuffledArr.Length - 1; i > 1; --i)
             {
                 var targetIndex = random.Next(0, i);
                 if (shuffledIndices.Contains(targetIndex))
