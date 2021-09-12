@@ -617,10 +617,16 @@ namespace DealOrNoDeal.View
             this.roundLabel.Text = "Welcome to Deal or No Deal!";
             this.casesToOpenLabel.Text = "Please select your case.";
             this.summaryOutput.Text = String.Empty;
+
+            this.setDollarAmountLabelValues(GameType.TenRoundStandard);
+            this.resetDollarAmountLabelColors();
             if (this.gameManager.GameType == GameType.FiveRound)
             {
-                this.resetDollarAmountLabelColors();
+
+                this.showHiddenDollarAmountLabels();
             }
+
+            this.enableBriefcaseButtons();
             this.hideBriefcaseButtons();
             this.showGameTypeButtons();
         }
@@ -641,6 +647,10 @@ namespace DealOrNoDeal.View
                 {
                     dollarLabel.Tag = null;
                     dollarLabel.Background = new SolidColorBrush(Colors.Yellow);
+                }
+            }
+        }
+
         private static string getSingularPluralForm(string item, int amount)
         {
             //Does not handle "es", but it's not necessary for the current needs of the project
