@@ -431,9 +431,9 @@ namespace DealOrNoDeal.View
             firstBriefcaseButton.Visibility = Visibility.Visible;
             lastBriefcaseButton.Visibility = Visibility.Visible;
 
-            this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxOffer:C}{Environment.NewLine}" +
-                                      $"Min. offer: {this.gameManager.MinOffer:C}{Environment.NewLine}" + 
-                                      $"Avg. offer: {this.gameManager.AverageOffer:C}";
+            this.summaryOutput.Text =
+                $"Offers: Min: {this.gameManager.MinOffer:C}; Max: {this.gameManager.MaxOffer:C}{Environment.NewLine}" +
+                $"\tAvg. offer: {this.gameManager.AverageOffer:C}{Environment.NewLine}";
 
         }
 
@@ -574,10 +574,10 @@ namespace DealOrNoDeal.View
 
         private void displayBankerOfferSummary()
         {
-            this.summaryOutput.Text = $"Max. offer: {this.gameManager.MaxOffer:C} | " +
-                                      $"Min. offer: {this.gameManager.MinOffer:C}{Environment.NewLine}" +
-                                      $"Avg. offer: {this.gameManager.AverageOffer:C} | Cur. offer: {this.gameManager.CurrentOffer:C}{Environment.NewLine}" +
-                                      "Deal or No Deal?";
+            this.summaryOutput.Text = 
+                $"Offers: Min: {this.gameManager.MinOffer:C}; Max: {this.gameManager.MaxOffer:C}{Environment.NewLine}" +
+                $"\tAvg. offer: {this.gameManager.AverageOffer:C}{Environment.NewLine}" +              
+                $"Cur. offer: {this.gameManager.CurrentOffer:C}; Deal or No Deal?";
         }
 
         private void displayFirstBriefcaseChosen()
