@@ -220,6 +220,9 @@ namespace DealOrNoDeal.View
             var gameTypeButton = (Button)sender;
             var gameType = this.getGameTypeFromButton(gameTypeButton);
 
+            this.hideGameTypeButtons();
+            this.showBriefcaseButtons();
+
             this.gameManager = new GameManager(gameType);
             if (this.gameManager.GameType == GameType.FiveRound)
             {
