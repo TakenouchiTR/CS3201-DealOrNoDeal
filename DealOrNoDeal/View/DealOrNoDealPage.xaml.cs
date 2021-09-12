@@ -28,7 +28,6 @@ namespace DealOrNoDeal.View
         ///     The application window height
         /// </summary>
         public const int ApplicationHeight = 500;
-
         /// <summary>
         ///     The application window width
         /// </summary>
@@ -36,10 +35,11 @@ namespace DealOrNoDeal.View
 
         private GameManager gameManager;
         private IList<Button> briefcaseButtons;
-        private IList<Border> dollarAmountLabels;
         private IList<Button> gameTypeButtons;
-        
+        private IList<Border> dollarAmountLabels;
         private IList<StackPanel> briefcaseButtonRows;
+
+        #endregion
         #endregion
 
         #region Constructors
