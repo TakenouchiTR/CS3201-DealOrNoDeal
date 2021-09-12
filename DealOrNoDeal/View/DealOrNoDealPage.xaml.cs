@@ -67,11 +67,13 @@ namespace DealOrNoDeal.View
             this.setPageSize();
 
             this.briefcaseButtons = new List<Button>();
-            this.dollarAmountLabels = new List<Border>();
             this.gameTypeButtons = new List<Button>();
+            this.dollarAmountLabels = new List<Border>();
+            this.briefcaseButtonRows = new List<StackPanel>();
             this.buildBriefcaseButtonCollection();
             this.buildDollarAmountLabelCollection();
             this.buildGameTypeButtonCollection();
+            this.buildBriefcaseRowCollection();
         }
         
         private static bool shouldSkipDollarAmountLabel(Border dollarAmountLabel)
