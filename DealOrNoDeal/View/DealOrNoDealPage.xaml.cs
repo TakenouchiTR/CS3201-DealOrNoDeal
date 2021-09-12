@@ -246,8 +246,6 @@ namespace DealOrNoDeal.View
 
         private void setupSevenOrTenRoundGame()
         {
-            this.showHiddenDollarAmountLabels();
-
             var rowCounts = new int[] { 6, 5, 5, 5, 5 };
             this.placeBriefcaseButtons(rowCounts);
         }
@@ -316,18 +314,6 @@ namespace DealOrNoDeal.View
                 if (briefcaseButton.Parent is StackPanel buttonPanel)
                 {
                     buttonPanel.Children.Remove(briefcaseButton);
-                }
-            }
-        }
-
-        private void showHiddenDollarAmountLabels()
-        {
-            foreach (var dollarLabel in this.dollarAmountLabels)
-            {
-                if (dollarLabel.Tag != null && dollarLabel.Tag.ToString() == SkipTag)
-                {
-                    dollarLabel.Tag = null;
-                    dollarLabel.Background = new SolidColorBrush(Colors.Yellow);
                 }
             }
         }
@@ -631,7 +617,10 @@ namespace DealOrNoDeal.View
             this.roundLabel.Text = "Welcome to Deal or No Deal!";
             this.casesToOpenLabel.Text = "Please select your case.";
             this.summaryOutput.Text = String.Empty;
-            this.resetDollarAmountLabelColors();
+            if (this.gameManager.GameType == GameType.FiveRound)
+            {
+                this.resetDollarAmountLabelColors();
+            }
             this.hideBriefcaseButtons();
             this.showGameTypeButtons();
         }
@@ -644,6 +633,14 @@ namespace DealOrNoDeal.View
             }
         }
 
+        private void showHiddenDollarAmountLabels()
+        {
+            foreach (var dollarLabel in this.dollarAmountLabels)
+            {
+                if (dollarLabel.Tag != null && dollarLabel.Tag.ToString() == SkipTag)
+                {
+                    dollarLabel.Tag = null;
+                    dollarLabel.Background = new SolidColorBrush(Colors.Yellow);
         private static string getSingularPluralForm(string item, int amount)
         {
             //Does not handle "es", but it's not necessary for the current needs of the project
