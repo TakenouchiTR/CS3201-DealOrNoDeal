@@ -23,6 +23,7 @@ namespace DealOrNoDeal.View
     {
         #region Data members
 
+        private const string SkipTag = "Skip";
         /// <summary>
         ///     The application window height
         /// </summary>
@@ -118,6 +119,7 @@ namespace DealOrNoDeal.View
                     prizeLabel.Text = $"{prizeAmount:C0}";
                 }
             }
+            return dollarAmountLabel.Tag != null && dollarAmountLabel.Tag.ToString() == SkipTag;
         }
 
         private void setPageSize()
