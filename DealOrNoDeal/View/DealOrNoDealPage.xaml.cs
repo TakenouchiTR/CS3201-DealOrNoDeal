@@ -358,6 +358,8 @@ namespace DealOrNoDeal.View
 
             this.findAndGrayOutGameDollarLabel(firstBriefcasePrizeAmount);
             this.findAndGrayOutGameDollarLabel(finalBriefcasePrizeAmount);
+            
+            promptToRestartGame();
         }
 
         private void findAndGrayOutGameDollarLabel(int amount)
@@ -509,7 +511,7 @@ namespace DealOrNoDeal.View
 
             this.hideDealButtons();
 
-            this.promptToRestartGame(this.gameManager.CurrentOffer);
+            this.promptToRestartGame();
         }
 
         private void noDealButton_Click(object sender, RoutedEventArgs e)
@@ -625,12 +627,12 @@ namespace DealOrNoDeal.View
             this.casesToOpenLabel.Text = "Please select your final case.";
         }
 
-        private async void promptToRestartGame(int prizeAmount)
+        private async void promptToRestartGame()
         {
             ContentDialog restartDialog = new ContentDialog() {
                 Title = "Restart game?",
-                Content = $"You won {prizeAmount:C}.{Environment.NewLine}" +
-                          $"Would you like to play again?",
+                Content = $"Thank you for playing!{Environment.NewLine}" +
+                          "Would you like to play again?",
                 PrimaryButtonText = "Yes",
                 SecondaryButtonText = "No"
             };
