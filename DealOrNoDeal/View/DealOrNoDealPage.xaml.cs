@@ -424,9 +424,8 @@ namespace DealOrNoDeal.View
             var lastBriefcaseButton = this.getLastBriefcase();
             this.gameManager.FinalBriefcaseId = this.getBriefcaseID(lastBriefcaseButton);
             this.hideBriefcaseButtons();
-            
-            this.moveBriefcaseButtonToCenterRow(firstBriefcaseButton);
-            this.moveBriefcaseButtonToCenterRow(lastBriefcaseButton);
+
+            placeLastTwoButtons(firstBriefcaseButton, lastBriefcaseButton);
 
             firstBriefcaseButton.Visibility = Visibility.Visible;
             lastBriefcaseButton.Visibility = Visibility.Visible;
@@ -435,6 +434,23 @@ namespace DealOrNoDeal.View
                 $"Offers: Min: {this.gameManager.MinOffer:C}; Max: {this.gameManager.MaxOffer:C}{Environment.NewLine}" +
                 $"\tAvg. offer: {this.gameManager.AverageOffer:C}{Environment.NewLine}";
 
+        }
+
+        private void placeLastTwoButtons(Button firstBriefcaseButton, Button lastBriefcaseButton)
+        {
+            int firstBriefcaseId = getBriefcaseID(firstBriefcaseButton);
+            int lastBriefcaseId = getBriefcaseID(lastBriefcaseButton);
+
+            if (firstBriefcaseId < lastBriefcaseId)
+            {
+                this.moveBriefcaseButtonToCenterRow(firstBriefcaseButton);
+                this.moveBriefcaseButtonToCenterRow(lastBriefcaseButton);
+            }
+            else
+            {
+                this.moveBriefcaseButtonToCenterRow(lastBriefcaseButton);
+                this.moveBriefcaseButtonToCenterRow(firstBriefcaseButton);
+            }
         }
 
         private void moveBriefcaseButtonToCenterRow(Button briefcaseButton)
