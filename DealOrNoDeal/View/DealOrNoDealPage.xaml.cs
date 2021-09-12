@@ -452,6 +452,14 @@ namespace DealOrNoDeal.View
             this.noDealButton.Visibility = Visibility.Collapsed;
         }
 
+        private void showBriefcaseButtons()
+        {
+            foreach (var briefcaseButton in this.briefcaseButtons)
+            {
+                briefcaseButton.Visibility = Visibility.Visible;
+            }
+        }
+
         private void hideBriefcaseButtons()
         {
             foreach (var briefcaseButton in this.briefcaseButtons)
