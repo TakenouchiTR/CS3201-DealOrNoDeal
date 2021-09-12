@@ -423,12 +423,13 @@ namespace DealOrNoDeal.View
 
         }
 
-        private void moveButtonToCenterRow(Button button)
+        private void moveBriefcaseButtonToCenterRow(Button briefcaseButton)
         {
-            var buttonPanel = button.Parent as StackPanel;
-            buttonPanel.Children.Remove(button);
-
-            this.centerStackPanel.Children.Add(button);
+            if (briefcaseButton.Parent is StackPanel buttonPanel)
+            {
+                buttonPanel.Children.Remove(briefcaseButton);
+                this.centerBriefcaseButtonRow.Children.Add(briefcaseButton);
+            }
         }
 
         private Button getButtonById(int targetId)
