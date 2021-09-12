@@ -412,6 +412,8 @@ namespace DealOrNoDeal.View
                 "GAME OVER";
 
             this.hideDealButtons();
+
+            this.promptToRestartGame(this.gameManager.CurrentOffer);
         }
 
         private void noDealButton_Click(object sender, RoutedEventArgs e)
@@ -518,7 +520,29 @@ namespace DealOrNoDeal.View
             this.roundLabel.Text = "This is the final round.";
             this.casesToOpenLabel.Text = "Please select your final case.";
         }
-        
+
+        private async void promptToRestartGame(int prizeAmount)
+        {
+            ContentDialog restartDialog = new ContentDialog() {
+                Title = "Restart game?",
+                Content = $"You won {prizeAmount:C}.{Environment.NewLine}" +
+                          $"Would you like to play again?",
+                PrimaryButtonText = "Yes",
+                SecondaryButtonText = "No"
+            };
+
+            var dialogResult = await restartDialog.ShowAsync();
+
+            if (dialogResult == ContentDialogResult.Primary)
+            {
+                this.resetGame();
+            }
+            else
+            {
+                Application.Current.Exit();
+            }
+        }
+
         private static string getSingularPluralForm(string item, int amount)
         {
             //Does not handle "es", but it's not necessary for the current needs of the project
