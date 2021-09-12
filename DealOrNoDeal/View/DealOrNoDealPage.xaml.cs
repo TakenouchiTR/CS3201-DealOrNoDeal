@@ -215,7 +215,7 @@ namespace DealOrNoDeal.View
             }
         }
 
-        private void gametype_Click(object sender, RoutedEventArgs e)
+        private void gameTypeButton_Click(object sender, RoutedEventArgs e)
         {
             var gameTypeButton = (Button)sender;
             var gameType = this.getGameTypeFromButton(gameTypeButton);

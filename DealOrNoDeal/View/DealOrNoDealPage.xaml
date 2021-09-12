@@ -199,7 +199,7 @@
                         <Button x:Name="case25" Content="26" Style="{StaticResource GameCaseStyle}"
                                 Click="briefcase_Click" />
                         <Button x:Name="fiveRoundButton" Content="Five Round" Style="{StaticResource GameCaseStyle}"
-                                Click="gametype_Click" Width="205" />
+                                Click="gameTypeButton_Click" Width="205" />
                     </StackPanel>
                 </Grid>
 
@@ -216,7 +216,7 @@
                         <Button x:Name="case20" Content="21" Style="{StaticResource GameCaseStyle}"
                                 Click="briefcase_Click" />
                         <Button x:Name="sevenRoundButton" Content="Seven Round" Style="{StaticResource GameCaseStyle}"
-                                Click="gametype_Click" Width="205" />
+                                Click="gameTypeButton_Click" Width="205" />
                     </StackPanel>
                 </Grid>
 
@@ -233,7 +233,7 @@
                         <Button x:Name="case15" Content="16" Style="{StaticResource GameCaseStyle}"
                                 Click="briefcase_Click" />
                         <Button x:Name="sevenRoundSyndicatedButton" Content="Seven Round (Syndicated)" Style="{StaticResource GameCaseStyle}"
-                                Click="gametype_Click" Width="205" />
+                                Click="gameTypeButton_Click" Width="205" />
                     </StackPanel>
                 </Grid>
 
@@ -250,7 +250,7 @@
                         <Button x:Name="case10" Content="11" Style="{StaticResource GameCaseStyle}"
                                 Click="briefcase_Click" />
                         <Button x:Name="tenRoundButton" Content="Ten Round" Style="{StaticResource GameCaseStyle}"
-                                Click="gametype_Click" Width="205" />
+                                Click="gameTypeButton_Click" Width="205" />
                     </StackPanel>
                 </Grid>
 
@@ -269,7 +269,7 @@
                         <Button x:Name="case5" Content="6" Style="{StaticResource GameCaseStyle}"
                                 Click="briefcase_Click" />
                         <Button x:Name="tenRoundSyndicatedButton" Content="Ten Round (Syndicated)" Style="{StaticResource GameCaseStyle}"
-                                Click="gametype_Click" Width="205" />
+                                Click="gameTypeButton_Click" Width="205" />
                     </StackPanel>
                 </Grid>
 
