@@ -9,7 +9,7 @@ namespace DealOrNoDeal.Model
     {
         #region Data fields
 
-        private static readonly int[] CaseAmounts = {
+        private static readonly int[] TotalBriefcasesPerGameType = {
             18,
             26,
             26,
@@ -17,16 +17,15 @@ namespace DealOrNoDeal.Model
             26
         };
 
-        private static readonly int[] RoundAmounts = {
+        private static readonly int[] NumberOfRoundsPerGameType = {
             5,
             7,
             7,
             10,
             10
         };
-
-        //todo rename this as well
-        private static readonly int[][] BriefcasesInRound = {
+        
+        private static readonly int[][] BriefcasesPerRoundPerGameType = {
             new[] {6, 5, 3, 2, 1},
             new[] {8, 6, 4, 3, 2, 1, 1},
             new[] {8, 6, 4, 3, 2, 1, 1},
@@ -37,15 +36,7 @@ namespace DealOrNoDeal.Model
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///     Gets the game type.
-        /// </summary>
-        /// <value>
-        ///     The game type.
-        /// </value>
-        public GameType GameType { get; }
-
+        
         /// <summary>
         ///     Gets the current round.
         /// </summary>
@@ -62,7 +53,7 @@ namespace DealOrNoDeal.Model
         /// </value>
         public int BriefcasesRemainingInRound { get; set; }
 
-        private int NumberOfRounds => RoundAmounts[(int) this.GameType];
+        private int NumberOfRounds { get; }
 
         /// <summary>
         ///     Gets the total briefcases in the game.
@@ -70,7 +61,9 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The total briefcases.
         /// </value>
-        public int TotalBriefcases => CaseAmounts[(int) this.GameType];
+        public int TotalBriefcases { get; }
+
+        private int[] BriefcasesPerRound { get; }
 
         #endregion
 
@@ -82,9 +75,12 @@ namespace DealOrNoDeal.Model
         /// <param name="gameType">Type of the game.</param>
         public RoundManager(GameType gameType)
         {
-            this.GameType = gameType;
-
             this.CurrentRound = 1;
+
+            this.NumberOfRounds = NumberOfRoundsPerGameType[(int) gameType];
+            this.TotalBriefcases = TotalBriefcasesPerGameType[(int) gameType];
+            this.BriefcasesPerRound = BriefcasesPerRoundPerGameType[(int) gameType];
+
             this.BriefcasesRemainingInRound = this.GetBriefcasesToOpenInRound(1);
         }
 
@@ -119,7 +115,7 @@ namespace DealOrNoDeal.Model
                 throw new ArgumentException($"roundNumber must be a positive integer below {this.NumberOfRounds + 1}.");
             }
 
-            return BriefcasesInRound[(int) this.GameType][roundNumber - 1];
+            return this.BriefcasesPerRound[roundNumber - 1];
         }
 
         /// <summary>

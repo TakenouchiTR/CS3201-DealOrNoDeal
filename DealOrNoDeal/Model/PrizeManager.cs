@@ -160,16 +160,8 @@ namespace DealOrNoDeal.Model
         /// <value>
         ///     The prizes.
         /// </value>
-        public int[] Prizes => PrizeArrays[(int) this.GameType];
-
-        /// <summary>
-        ///     Gets the game type.
-        /// </summary>
-        /// <value>
-        ///     The game type.
-        /// </value>
-        public GameType GameType { get; }
-
+        public int[] Prizes { get; }
+        
         #endregion
 
         #region Constructors
@@ -180,7 +172,7 @@ namespace DealOrNoDeal.Model
         /// <param name="gameType">Type of the game.</param>
         public PrizeManager(GameType gameType)
         {
-            this.GameType = gameType;
+            this.Prizes = PrizeArrays[(int) gameType];
         }
 
         #endregion
