@@ -39,6 +39,7 @@ namespace DealOrNoDeal.View
         private IList<Border> dollarAmountLabels;
         private IList<Button> gameTypeButtons;
         
+        private IList<StackPanel> briefcaseButtonRows;
         #endregion
 
         #region Constructors
@@ -206,6 +207,15 @@ namespace DealOrNoDeal.View
             this.gameTypeButtons.Add(this.tenRoundSyndicatedButton);
 
             storeGameTypeInControlsTagProperty();
+        }
+
+        private void buildBriefcaseRowCollection()
+        {
+            this.briefcaseButtonRows.Add(this.briefcaseRow0);
+            this.briefcaseButtonRows.Add(this.briefcaseRow1);
+            this.briefcaseButtonRows.Add(this.briefcaseRow2);
+            this.briefcaseButtonRows.Add(this.briefcaseRow3);
+            this.briefcaseButtonRows.Add(this.briefcaseRow4);
         }
 
         private void storeBriefCaseIndexInControlsTagProperty()
