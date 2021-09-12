@@ -411,8 +411,8 @@ namespace DealOrNoDeal.View
             this.gameManager.FinalBriefcaseId = this.getBriefcaseID(lastBriefcaseButton);
             this.hideBriefcaseButtons();
             
-            moveButtonToCenterRow(firstBriefcaseButton);
-            moveButtonToCenterRow(lastBriefcaseButton);
+            this.moveBriefcaseButtonToCenterRow(firstBriefcaseButton);
+            this.moveBriefcaseButtonToCenterRow(lastBriefcaseButton);
 
             firstBriefcaseButton.Visibility = Visibility.Visible;
             lastBriefcaseButton.Visibility = Visibility.Visible;
